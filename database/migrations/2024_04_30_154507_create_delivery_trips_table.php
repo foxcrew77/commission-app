@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('trip_date');
             $table->decimal('total_weight',10,2);
-            $table->unsignedBigInteger('lorry_id');
-            $table->foreign('lorry_id')->references('id')->on('lorries')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('lorry_id');
+            $table->foreign('lorry_id')->references('id')->on('lorries')->onDelete('cascade');
             $table->unsignedBigInteger('driver_id');
             $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
             $table->unsignedBigInteger('workman_id');

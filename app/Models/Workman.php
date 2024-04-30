@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Workman extends Model
 {
     use HasFactory;
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function delivery_trips(){
+        return $this->hasMany(Delivery_trip::class);
+    }
+
 }

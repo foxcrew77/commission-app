@@ -42,19 +42,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function delivery_trip(){
+    public function delivery_trips(){
         return $this->hasMany(Delivery_trip::class);
     }
 
-    public function lorry(){
+    public function lorries(){
         return $this->hasMany(Lorry::class);
     }
 
-    public function driver(){
-        return $this->hasMany(driver::class);
+    public function drivers(){
+        return $this->hasMany(Driver::class);
     }
 
-    public function workman(){
-        return $this->hasMany(workman::class);
+    public function workmen(){
+        return $this->hasMany(Workman::class);
     }
 }
