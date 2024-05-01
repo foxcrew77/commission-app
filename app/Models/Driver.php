@@ -14,6 +14,6 @@ class Driver extends Model
     }
 
     public function delivery_trips(){
-        return $this->hasMany(Delivery_trip::class);
+        return $this->belongsToMany(Delivery_trip::class, 'delivery_trip_driver', 'driver_id', 'delivery_trip_id');
     }
 }

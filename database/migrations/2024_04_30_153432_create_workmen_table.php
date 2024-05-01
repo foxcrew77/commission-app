@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('outlet');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('driver_id');
-            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
             $table->timestamps();
         });
     }

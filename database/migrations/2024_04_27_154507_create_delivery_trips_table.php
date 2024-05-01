@@ -17,12 +17,12 @@ return new class extends Migration
             $table->decimal('total_weight',10,2);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('lorry_id');
-            $table->foreign('lorry_id')->references('id')->on('lorries')->onDelete('cascade');
-            $table->unsignedBigInteger('driver_id');
-            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
-            $table->unsignedBigInteger('workman_id');
-            $table->foreign('workman_id')->references('id')->on('workmen')->onDelete('cascade');
+            // $table->unsignedBigInteger('lorry_id');
+            // $table->foreign('lorry_id')->references('id')->on('delivery_trips_lorries')->onDelete('cascade');
+            // $table->unsignedBigInteger('driver_id');
+            // $table->foreign('driver_id')->references('id')->on('delivery_trips_drivers')->onDelete('cascade');
+            // $table->unsignedBigInteger('workman_id');
+            // $table->foreign('workman_id')->references('id')->on('delivery_trips_workmen')->onDelete('cascade');
             $table->json('details');
             $table->timestamps();
         });

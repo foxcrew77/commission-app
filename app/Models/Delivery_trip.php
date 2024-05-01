@@ -14,14 +14,14 @@ class Delivery_trip extends Model
     }
 
     public function lorries(){
-        return $this->hasMany(Lorry::class);
+        return $this->belongsToMany(Lorry::class);
     }
 
     public function drivers(){
-        return $this->hasMany(Driver::class);
+        return $this->belongsToMany(Driver::class);
     }
 
     public function workmen(){
-        return $this->hasMany(Workman::class);
+        return $this->belongsToMany(Workman::class);
     }
 }
