@@ -12,15 +12,10 @@ class DeliveryController extends Controller
 
     public function index(){
         // $delivery_lorry = Delivery_trip::first()->lorries()->get();
-        // $delivery_lorry = Delivery_trip::with('lorries')->get();
-        $delivery_lorry = Delivery_trip::where('id', '>', 10)->paginate(25)->get();
-        $delivery_driver = Delivery_trip::with('drivers')->get();
-        $delivery_workmen = Delivery_trip::with('workmen')->get();
+        $delivery_trip = Delivery_trip::orderBy('id', 'DESC')->paginate(20);
+        
         return view('admin.tables', [
-            // 'delivery_trips' => Delivery_trip::all(),
-            'delivery_lorry' => $delivery_lorry->paginate(25),
-            // 'delivery_driver' => $delivery_driver,
-            // 'delivery_workmen' => $delivery_workmen,
+            'delivery_trip' => $delivery_trip,
         ]);
     }
 }
