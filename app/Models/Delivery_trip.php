@@ -14,14 +14,15 @@ class Delivery_trip extends Model
     }
 
     public function lorries(){
-        return $this->belongsToMany(Lorry::class);
+        return $this->belongsToMany(Lorry::class, 'delivery_trip_lorry', 'delivery_trip_id', 'lorry_id');
+        // ->withPivot(['lorry_id']);
     }
 
     public function drivers(){
-        return $this->belongsToMany(Driver::class);
+        return $this->belongsToMany(Driver::class, 'delivery_trip_driver', 'delivery_trip_id', 'driver_id');
     }
 
     public function workmen(){
-        return $this->belongsToMany(Workman::class);
+        return $this->belongsToMany(Workman::class, 'delivery_trip_workman', 'delivery_trip_id', 'workman_id');
     }
 }

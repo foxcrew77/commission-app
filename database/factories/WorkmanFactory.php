@@ -18,7 +18,7 @@ class WorkmanFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'name' => fake()->name(1,15),
             'position' => 'workman',
             'outlet' => $this->faker->randomElement(['KKIP', 'KK2']),
             'user_id' => User::inRandomOrder()->first()->id,

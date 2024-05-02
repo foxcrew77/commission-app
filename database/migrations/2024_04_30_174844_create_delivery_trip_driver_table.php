@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('delivery_trip_driver', function (Blueprint $table) {
             // $table->id();
             // $table->timestamps();
-
-            $table->unsignedBigInteger('driver_id');
             $table->unsignedBigInteger('delivery_trip_id');
-
-            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
+            $table->unsignedBigInteger('driver_id');
+            
             $table->foreign('delivery_trip_id')->references('id')->on('delivery_trips')->onDelete('cascade');
+            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
+            
             
         });
     }

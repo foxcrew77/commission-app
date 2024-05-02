@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\DeliveryController;
+use App\Models\Delivery_trip;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +30,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'admin.
     Route::view('/charts', 'admin.charts')->name('charts');
     Route::view('/forms', 'admin.forms')->name('forms');
     Route::view('/modals', 'admin.modals')->name('modals');
-    Route::view('/tables', 'admin.tables')->name('tables');
+    // Route::view('/tables', 'admin.tables')->name('tables');
+Route::get('/tables', [DeliveryController::class, 'index'])->name('tables');
 
     Route::group(['prefix' => 'pages', 'as' => 'page.'], function () {
         Route::view('/404-page', 'admin.pages.404')->name('404');

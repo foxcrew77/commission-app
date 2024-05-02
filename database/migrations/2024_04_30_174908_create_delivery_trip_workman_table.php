@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('delivery_trip_workman', function (Blueprint $table) {
             // $table->id();
             // $table->timestamps();
-
-            $table->unsignedBigInteger('workman_id');
             $table->unsignedBigInteger('delivery_trip_id');
-
-            $table->foreign('workman_id')->references('id')->on('workmen')->onDelete('cascade');
+            $table->unsignedBigInteger('workman_id');
+            
             $table->foreign('delivery_trip_id')->references('id')->on('delivery_trips')->onDelete('cascade');
+            $table->foreign('workman_id')->references('id')->on('workmen')->onDelete('cascade');
+            
         });
     }
 

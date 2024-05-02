@@ -14,6 +14,6 @@ class Lorry extends Model
     }
 
     public function delivery_trips(){
-        return $this->belongsToMany(Delivery_trip::class, 'delivery_trip_lorry', 'lorry_id', 'delivery_trip_id');
+        return $this->belongsToMany(Delivery_trip::class);
     }
 }

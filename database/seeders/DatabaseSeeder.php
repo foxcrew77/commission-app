@@ -22,6 +22,16 @@ class DatabaseSeeder extends Seeder
         // $this->call([
         //     UserSeeder::class,
         // ]);
+        // $faker = (new \Faker\Factory())::create();
+        // $faker->addProvider(new \Faker\Provider\FakeCar($faker));
+        // User::create([
+        //     'name' => 'admin',
+        //     'email' => 'admin@test.com',
+        //     'password' => '12345678',
+        //     // 'is_admin' => true,
+        //     'email_verified_at' => $faker->dateTime(),
+        //     'remember_token' => '78x6c35esh2Ya0g4fb1d9'
+        // ]);
         User::factory(4)->create();
         Lorry::factory(10)->create();
         Driver::factory(10)->create();
