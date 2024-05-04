@@ -7,11 +7,15 @@
     <meta name="author" content="abdulbasit-dev">
     <title>Laravel Windmill Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+   
     <link rel="stylesheet" href="{{asset('assets/css/tailwind.output.css')}}"/>
     <link rel="stylesheet" href="{{ asset('assets/css/Chart.min.css') }}"/>
 
     {{-- favicon --}}
     <link rel="icon" sizes="180x180" href="{{ asset('assets/img/windmill.png') }}">
+
+    {{-- feather icon --}}
+    <script src="{{ asset('js/feather.min.js') }}"></script>
 </head>
 <body>
 <div
@@ -31,7 +35,7 @@
         </main>
     </div>
 </div>
-
+<script>feather.replace();</script>
 <script src="{{ asset("assets/js/alpine.min.js") }}" defer></script>
 <script src="{{ asset("assets/js/Chart.min.js") }}" defer></script>
 <script src="{{ asset("assets/js/init-alpine.js") }}"></script>

@@ -23,7 +23,7 @@ class LorryFactory extends Factory
             'plate_no' => $faker->vehicleRegistration,
             'outlet' => $this->faker->randomElement(['KKIP', 'KK2']),
             'user_id' => User::inRandomOrder()->first()->id,
-            // 'user_id' => $this->faker->unique()->numberBetween(1, 100),
+            'capacity' => $this->faker->randomElement([2200,2500,4000,8000]),
         ];
     }
 }

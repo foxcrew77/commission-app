@@ -45,8 +45,8 @@
             @foreach ($elements as $element) 
             @if (is_string($element)) 
                 <li>
-                    <span class="px-3 py-1">1</span>
-                    {{-- <span class="px-3 py-1">...</span> --}}
+                    {{-- <span class="px-3 py-1">1</span> --}}
+                    <span class="px-3 py-1">...</span>
                 </li>
             @endif 
     

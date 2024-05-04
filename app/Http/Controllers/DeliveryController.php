@@ -14,7 +14,7 @@ class DeliveryController extends Controller
         // $delivery_lorry = Delivery_trip::first()->lorries()->get();
         $delivery_trip = Delivery_trip::orderBy('id', 'DESC')->paginate(20);
         
-        return view('admin.tables', [
+        return view('admin.deliverytrip', [
             'delivery_trip' => $delivery_trip,
         ]);
     }

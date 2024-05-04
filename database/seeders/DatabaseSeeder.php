@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         Lorry::factory(10)->create();
         Driver::factory(10)->create();
         Workman::factory(28)->create();
-        Delivery_trip::factory(100)->create();
+        Delivery_trip::factory(6000)->create();
 
         foreach (Delivery_trip::all() as $delivery){
             // $lorry = \App\Models\Lorry::inRandomOrder()->take(rand(1,3))->pluck('id');
