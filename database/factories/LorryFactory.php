@@ -22,8 +22,9 @@ class LorryFactory extends Factory
         return [
             'plate_no' => $faker->vehicleRegistration,
             'outlet' => $this->faker->randomElement(['KKIP', 'KK2']),
-            'user_id' => User::inRandomOrder()->first()->id,
             'capacity' => $this->faker->randomElement([2200,2500,4000,8000]),
+            'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
+            'user_id' => User::inRandomOrder()->first()->id,
         ];
     }
 }

@@ -20,8 +20,8 @@
                 @endif
         
                 <a
-                        class="inline-flex items-center w-full text-sm font-semibold  transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100
-                        {{ Request::is('dashboard') ? 'text-gray-800' : '' }}
+                        class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200
+                        {{ Request::is('dashboard') ? 'text-gray-800 dark:text-gray-100' : '' }}
                         "
                         href="{{ route('admin.home')}}"
                 >
@@ -45,15 +45,15 @@
         </ul>
         <ul>
             <li class="relative px-6 py-3">
-                @if (request()->routeIs('admin.deliverytrip'))
+                @if (request()->routeIs('admin.deliverytrip.index'))
                     <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                         aria-hidden="true"></span>
                     @endif
                 <a
                         class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200
-                        {{ Request::is('dashboard/deliverytrip') ? 'text-gray-800' : '' }}
+                        {{ Request::is('dashboard/deliverytrip*') ? 'text-gray-800 dark:text-gray-100' : '' }}
                         "
-                        href="{{ route('admin.deliverytrip') }}"
+                        href="{{ route('admin.deliverytrip.index') }}"
                 >
                     <svg
                             class="w-5 h-5"
@@ -73,59 +73,49 @@
                 </a>
             </li>
             <li class="relative px-6 py-3">
-                @if (request()->routeIs('admin.cards'))
+                @if (request()->routeIs('admin.lorry.index'))
                 <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                     aria-hidden="true"></span>
                 @endif
                 <a
                         class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200
-                        {{ Request::is('dashboard/cards') ? 'text-gray-800' : '' }}
+                        {{ Request::is('dashboard/lorry*') ? 'text-gray-800 dark:text-gray-100' : '' }}
                         "
-                        href="{{ route('admin.cards') }}"
+                        href="{{ route('admin.lorry.index') }}"
                 >
-                    <i data-feather="truck" style="width:21"></i>
+                    <i data-feather="truck" class="" style="width:20"></i>
                     <span class="ml-4">Lorry</span>
                 </a>
             </li>
             <li class="relative px-6 py-3">
-                @if (request()->routeIs('admin.charts'))
+                @if (request()->routeIs('admin.driver.index'))
                 <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                     aria-hidden="true"></span>
                 @endif
                 <a
                         class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200
-                        {{ Request::is('dashboard/charts') ? 'text-gray-800' : '' }}
+                        {{ Request::is('dashboard/driver*') ? 'text-gray-800 dark:text-gray-100' : '' }}
                         "
-                        href="{{ route('admin.charts') }}"
+                        href="{{ route('admin.driver.index') }}"
                 >
-                    <embed
-                    class="w-5 h-5"
-                            aria-hidden="true"
-                            fill="none"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                    src="{{ asset('icons/truck-driver.svg') }}" />
-                    <span class="ml-4">Driver</span>
+                <span class="pr-4 -ml-2 material-symbols-outlined">person</span>
+                    <span class="ml-3">Driver</span>
                 </a>
             </li>
             <li class="relative px-6 py-3">
-                @if (request()->routeIs('admin.buttons'))
+                @if (request()->routeIs('admin.workman.index'))
                 <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg"
                     aria-hidden="true"></span>
                 @endif
                 <a
                         class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200
-                        {{ Request::is('dashboard/buttons') ? 'text-gray-800' : '' }}
+                        {{ Request::is('dashboard/workman*') ? 'text-gray-800 dark:text-gray-100' : '' }}
                         "
-                        href="{{ route('admin.buttons') }}"
+                        href="{{ route('admin.workman.index') }}"
                 >
-                    <embed
-                    class="w-5 h-5 fill-current stroke-white stroke-2"
-                    src="{{ asset('icons/workmen.svg') }}" />
-                    <span class="ml-4">Workman</span>
+                    
+                <span class="-ml-2 material-symbols-outlined">group</span>
+                    <span class="ml-3">Workman</span>
                 </a>
             </li>
             <li class="relative px-6 py-3">
@@ -135,12 +125,12 @@
                 @endif
                 <a
                         class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200
-                        {{ Request::is('dashboard/modals') ? 'text-gray-800' : '' }}
+                        {{ Request::is('dashboard/modals') ? 'text-gray-800 dark:text-gray-100' : '' }}
                         "
                         href="{{ route('admin.modals') }}"
                 >
                 <i data-feather="calendar" style="width:20"></i>
-                    <span class="ml-4">Calender</span>
+                    <span class="ml-4">Calendar</span>
                 </a>
             </li>
             <li class="relative px-6 py-3">
@@ -150,7 +140,7 @@
                 @endif
                 <a
                         class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200
-                        {{ Request::is('dashboard/tables') ? 'text-gray-800' : '' }}
+                        {{ Request::is('dashboard/tables') ? 'text-gray-800 dark:text-gray-100' : '' }}
                         "
                         href="{{ route('admin.tables') }}"
                 >
@@ -179,7 +169,7 @@
                             d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
                     ></path>
                   </svg>
-                  <span class="ml-4" {{ Request::is('dashboard/pages*') ? 'text-gray-800' : '' }}>Pages</span>
+                  <span class="ml-4" {{ Request::is('dashboard/pages*') ? 'text-gray-800 dark:text-gray-100' : '' }}>Pages</span>
                 </span>
                     <svg
                             class="w-4 h-4"
@@ -234,17 +224,29 @@
                         >
                             <a class="w-full" href="{{ route('admin.page.blank') }}">Blank</a>
                         </li>
+                        <li
+                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        >
+                            <a class="w-full" href="{{ route('admin.buttons') }}">button</a>
+                        </li>
+                        <li
+                                class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                        >
+                            <a class="w-full" href="{{ route('admin.modals') }}">modals</a>
+                        </li>
                     </ul>
                 </template>
             </li>
         </ul>
         <div class="px-6 my-6">
-            <button
+            <a href="{{ route('admin.deliverytrip.create') }}">
+                <button
                     class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-            >
-                Add Delivery Trip
+                >
+                Add New Delivery Trip
                 <span class="ml-2" aria-hidden="true">+</span>
-            </button>
+                </button>
+            </a>
         </div>
     </div>
 </aside>

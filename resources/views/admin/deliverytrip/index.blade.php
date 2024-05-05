@@ -1,27 +1,58 @@
 @extends('layouts.admin')
 @section('content')
 <div class="container grid px-6 mx-auto">
-    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-        Tables
+    <h2 class="mt-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Delivery Trip
     </h2>
-
-    <!-- With actions -->
-    <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-        Table with actions
-    </h4>
-    {{-- Pagination and results number --}}
-    {{-- <div
-        class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-        <span class="flex items-center col-span-3">
-            Showing 21-30 of 100
-        </span>
-        <span class="col-span-2"></span>
-            <!-- Pagination -->
-            {{ $delivery_trip->links() }}
+    <div class="mt-4 mb-4">
+        <a href="{{ route('admin.deliverytrip.create') }}">
+            <button
+                class="flex items-center justify-between px-4 w-full py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+        >
+                Add New Delivery Trip
+                <span class="ml-2" aria-hidden="true">+</span>
+            </button>
+        </a>
+    </div>
+    {{-- <div class="my-2 flex sm:flex-row flex-col focus-within:text-purple-500">
+        <div class="flex flex-row mb-2 sm:mb-0">
+            <div class="relative">
+                <select
+                    class="w-full text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
+                    <option>All</option>
+                    <option selected>Active</option>
+                    <option>Inactive</option>
+                </select>
+            </div>
+        </div>
+        <div class="block relative text-purple-500">
+            <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
+                <svg
+                    class="w-4 h-4"
+                    aria-hidden="true"
+                    fill="#8549ff"
+                    viewBox="0 0 20 20"
+            >
+                <path
+                        fill-rule="evenodd"
+                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                        clip-rule="evenodd"
+                ></path>
+            </svg>
+            </span>
+            <input 
+            class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+            type="text"
+            placeholder="Search for delivery trip"
+            aria-label="Search" />
+        </div>
     </div> --}}
     {{ $delivery_trip->links() }}
+    
     <div class="w-full overflow-visible rounded-lg shadow-xs">
+        
         <div class="w-full overflow-x-auto">
+            
             <table class="w-full whitespace-no-wrap">
                 <thead>
                     <tr
@@ -40,15 +71,16 @@
                     @foreach ($delivery_trip as $trip)
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-sm">{{ $delivery_trip->firstItem() + $loop->index}}</td>
-                        <td class="flex flex-col px-4 py-3 text-sm">
-                            <span class="mt-3">{{ date('d-m-Y', strtotime($trip->trip_date)); }}</span>
-                            <span class="text-gray-500 text-xs">{{ date('H:i:s', strtotime($trip->trip_date)); }}</span>
+                        <td class="flex flex-col px-4 py-2 text-sm">
+                                <span class="mt-2">{{ date('d-m-Y', strtotime($trip->trip_date)); }}</span>
+                                <span class="text-gray-500 text-xs">{{ date('H:i:s', strtotime($trip->trip_date)); }}</span>
                         </td>
                         <td class="px-4 py-3 text-sm">
                             {{ $trip->total_weight }}
                         </td>
-                        <td class="px-4 py-3 text-sm">
-                            {{ $trip->lorries()->get()[0]->plate_no}}
+                        <td class="flex flex-col px-4 py-3 text-sm">
+                            <span class="mt-2">{{ $trip->lorries()->get()[0]->plate_no}}</span>
+                            <span class="text-gray-500 text-xs">{{ $trip->lorries()->get()[0]->capacity}} KG</span>
                         </td>
                         <td class="px-4 py-3 text-sm">
                             {{ $trip->drivers()->get()[0]->name }}

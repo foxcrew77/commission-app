@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\DeliveryController;
-use App\Models\Delivery_trip;
+use App\Http\Controllers\DeliveryResourceController;
+use App\Http\Controllers\LorryResourceController;
+use App\Http\Controllers\DriverResourceController;
+use App\Http\Controllers\WorkmanResourceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +25,7 @@ Route::view('/', 'welcome');
 Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'admin.'], function () {
     //single action controllers
     Route::get('/', HomeController::class)->name('home');
-
+    
     //link that return view, to get compoment from there
     Route::view('/buttons', 'admin.buttons')->name('buttons');
     Route::view('/cards', 'admin.cards')->name('cards');
@@ -31,8 +33,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'admin.
     Route::view('/forms', 'admin.forms')->name('forms');
     Route::view('/modals', 'admin.modals')->name('modals');
     Route::view('/tables', 'admin.tables')->name('tables');
-// Route::get('/deliverytrip', [DeliveryController::class, 'index'])->name('deliverytrip');
-    route::resource('/dashboard/deliverytrip', DeliveryResourceController::class);
+
+    route::resource('/deliverytrip', DeliveryResourceController::class);
+    route::resource('/lorry', LorryResourceController::class);
+    route::resource('/driver', DriverResourceController::class);
+    route::resource('/workman', WorkmanResourceController::class);
 
     Route::group(['prefix' => 'pages', 'as' => 'page.'], function () {
         Route::view('/404-page', 'admin.pages.404')->name('404');

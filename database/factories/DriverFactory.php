@@ -21,8 +21,8 @@ class DriverFactory extends Factory
             'name' => fake()->name(),
             'position' => 'driver',
             'outlet' => $this->faker->randomElement(['KKIP', 'KK2']),
+            'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
             'user_id' => User::inRandomOrder()->first()->id,
-            // 'user_id' => $this->faker->unique()->numberBetween(1, 100),
         ];
     }
 }

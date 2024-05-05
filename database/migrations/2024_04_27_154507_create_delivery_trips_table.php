@@ -23,7 +23,7 @@ return new class extends Migration
             // $table->foreign('driver_id')->references('id')->on('delivery_trips_drivers')->onDelete('cascade');
             // $table->unsignedBigInteger('workman_id');
             // $table->foreign('workman_id')->references('id')->on('delivery_trips_workmen')->onDelete('cascade');
-            $table->json('details');
+            $table->json('details')->nullable();
             $table->timestamps();
         });
     }
