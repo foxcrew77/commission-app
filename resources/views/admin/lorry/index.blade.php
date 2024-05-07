@@ -8,47 +8,36 @@
     {{-- <h4 class="mb-2 text-md font-semibold text-gray-600 dark:text-gray-300">
         List of Lorry
     </h4> --}}
-    <div class="mt-4 mb-4">
-        <a href="{{ route('admin.lorry.create')}}">
-            <button
-                    class="flex items-center justify-between px-4 w-full py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-            >
-                Add New Lorry
-                <span class="ml-2" aria-hidden="true">+</span>
-        </button>
-    </a>
-    </div>
-    <div class="my-2 flex sm:flex-row flex-col focus-within:text-purple-500">
-        <div class="flex flex-row mb-2 sm:mb-0">
-            <div class="relative">
-                <select
-                    class="w-full text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
-                    <option>All</option>
-                    <option selected>Active</option>
-                    <option>Inactive</option>
-                </select>
+    
+    <div class="my-4 mt-2 flex sm:flex-row justify-between focus-within:text-purple-500">
+        <div class="flex  sm:flex-row">
+            <div class="flex flex-row mb-2 sm:mb-0">
+                <div class="relative">
+                    <select
+                        class="w-full text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
+                        <option>All</option>
+                        <option selected>Active</option>
+                        <option>Inactive</option>
+                    </select>
+                </div>
+            </div>
+            <div class="block relative text-purple-500">
+                <input 
+                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                type="text"
+                placeholder="Search for lorry"
+                aria-label="Search" />
             </div>
         </div>
-        <div class="block relative text-purple-500">
-            {{-- <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
-                <svg
-                    class="w-4 h-4"
-                    aria-hidden="true"
-                    fill="#8549ff"
-                    viewBox="0 0 20 20"
-            >
-                <path
-                        fill-rule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clip-rule="evenodd"
-                ></path>
-            </svg>
-            </span> --}}
-            <input 
-            class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-            type="text"
-            placeholder="Search for lorry"
-            aria-label="Search" />
+        <div class="">
+            <a href="{{ route('admin.lorry.create')}}">
+                <button
+                        class="flex items-center justify-between px-4 w-full py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                >
+                    Add New Lorry
+                    <span class="ml-2" aria-hidden="true">+</span>
+            </button>
+        </a>
         </div>
     </div>
     {{ $lorries->links() }}
@@ -67,8 +56,8 @@
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($lorries as $lorry)
-                    <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3 text-sm">{{ $lorries->firstItem() + $loop->index}}</td>
+                    <tr class="text-gray-700 dark:text-gray-400" onclick="{{ route('admin.lorry.show',['lorry' => $lorry->id]) }}">
+                        <td class="px-4 py-3 text-sm"><a href="{{ route('admin.lorry.show',['lorry' => $lorry->id]) }}">{{ $lorries->firstItem() + $loop->index}}</a></td>
                         <td class="px-4 py-3 text-sm">{{ $lorry->plate_no }}</td>
                         <td class="px-4 py-3 text-sm">{{ $lorry->capacity }}</td>
                         <td class="px-4 py-3 text-sm">{{ $lorry->outlet }}</td>

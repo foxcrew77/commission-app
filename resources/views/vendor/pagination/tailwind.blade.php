@@ -1,3 +1,10 @@
+<style>
+    @media (prefers-color-scheme: dark) {
+    .arro {
+        fill: white;
+    }
+  }
+</style>
 <div
         class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
         <span class="flex items-center col-span-3">
@@ -12,7 +19,7 @@
             @if ($paginator->onFirstPage()) 
                 <li class="">
                         <button
-                        class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                        class="arro px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
                         aria-label="Previous">
                         <svg class="w-4 h-4 fill-current" aria-hidden="true"
                             viewBox="0 0 20 20">
@@ -26,7 +33,7 @@
                 <li>
                     <a href="{{ $paginator->previousPageUrl() }}">
                         <button
-                        class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                        class="gelap px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
                         aria-label="Previous">
                         <svg class="w-4 h-4 fill-none" aria-hidden="true"
                             viewBox="0 0 20 20">
@@ -90,7 +97,7 @@
                     <button
                         class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
                         aria-label="Next">
-                        <svg class="w-4 h-4 fill-current invisible" aria-hidden="true"
+                        <svg class="w-4 h-4 fill-current" aria-hidden="true"
                             viewBox="0 0 20 20">
                             <path
                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"

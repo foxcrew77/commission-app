@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'admin.
 
     route::resource('/deliverytrip', DeliveryResourceController::class);
     route::resource('/lorry', LorryResourceController::class);
+    // route::resource('/lorry/{id}', [LorryResourceController::class, 'show']);
     route::resource('/driver', DriverResourceController::class);
     route::resource('/workman', WorkmanResourceController::class);
 

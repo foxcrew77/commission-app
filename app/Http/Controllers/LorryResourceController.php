@@ -43,7 +43,10 @@ class LorryResourceController extends Controller
      */
     public function show(Lorry $lorry)
     {
-        //
+        // $lorries = Lorry::find($lorry);
+        return view('admin.lorry.show', [
+            'lorry' =>  $lorry,
+        ]);
     }
 
     /**
