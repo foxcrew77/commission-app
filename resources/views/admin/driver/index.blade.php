@@ -9,8 +9,8 @@
             <div class="flex flex-row mb-2 sm:mb-0">
                 <div class="relative">
                     <select
-                        class="w-full text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
-                        <option>All</option>
+                        class="cursor-pointer w-full text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
+                        <option class="">All</option>
                         <option selected>Active</option>
                         <option>Inactive</option>
                     </select>
@@ -50,7 +50,9 @@
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($drivers as $driver)
-                    <tr class="text-gray-700 dark:text-gray-400">
+                    <tr 
+                        data-href="{{ route('admin.driver.show',['driver' => $driver->id]) }}"
+                        class="cursor-pointer hover:bg-gray-100 text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-sm">{{ $drivers->firstItem() + $loop->index}}</td>
                         <td class="px-4 py-3 text-sm">{{ $driver->name }}</td>
                         <td class="px-4 py-3 text-sm">{{ $driver->outlet }}</td>
@@ -87,6 +89,16 @@
         {{ $drivers->links() }}
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const rows = document.querySelectorAll('tr[data-href]');
+        rows.forEach(row => {
+            row.addEventListener('click', () => {
+                window.location.href = row.dataset.href;
+            })
+        });
+    });
+</script>
 
 @endsection
 

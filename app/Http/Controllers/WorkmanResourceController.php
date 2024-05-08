@@ -42,7 +42,9 @@ class WorkmanResourceController extends Controller
      */
     public function show(Workman $workman)
     {
-        //
+        return view('admin.workman.show', [
+            'workman' =>  $workman,
+        ]);
     }
 
     /**

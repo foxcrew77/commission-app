@@ -56,8 +56,10 @@
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($lorries as $lorry)
-                    <tr class="text-gray-700 dark:text-gray-400" onclick="{{ route('admin.lorry.show',['lorry' => $lorry->id]) }}">
-                        <td class="px-4 py-3 text-sm"><a href="{{ route('admin.lorry.show',['lorry' => $lorry->id]) }}">{{ $lorries->firstItem() + $loop->index}}</a></td>
+                    <tr 
+                        data-href="{{ route('admin.lorry.show',['lorry' => $lorry->id]) }}"
+                        class="cursor-pointer hover:bg-gray-100 text-gray-700 dark:text-gray-400" >
+                        <td class="px-4 py-3 text-sm">{{ $lorries->firstItem() + $loop->index}}</td>
                         <td class="px-4 py-3 text-sm">{{ $lorry->plate_no }}</td>
                         <td class="px-4 py-3 text-sm">{{ $lorry->capacity }}</td>
                         <td class="px-4 py-3 text-sm">{{ $lorry->outlet }}</td>
@@ -94,7 +96,16 @@
         {{ $lorries->links() }}
     </div>
 </div>
-
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const rows = document.querySelectorAll('tr[data-href]');
+        rows.forEach(row => {
+            row.addEventListener('click', () => {
+                window.location.href = row.dataset.href;
+            })
+        });
+    });
+</script>
 @endsection
 
 

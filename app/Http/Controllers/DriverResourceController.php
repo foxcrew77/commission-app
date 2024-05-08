@@ -42,7 +42,9 @@ class DriverResourceController extends Controller
      */
     public function show(Driver $driver)
     {
-        //
+        return view('admin.driver.show', [
+            'driver' =>  $driver,
+        ]);
     }
 
     /**
