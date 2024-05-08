@@ -26,7 +26,7 @@
                 class="w-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
             >
             
-            @include('includes.back-button')
+            @include('includes.back-button', ['IndexRoute' => 'admin.workman.index'])
             <div class="w-auto overflow-visible rounded-lg shadow-xs">
                 <div class="w-auto overflow-x-auto">
                 <div class="flex flex-row">

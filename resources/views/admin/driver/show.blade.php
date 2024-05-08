@@ -18,7 +18,7 @@
             <div
                 class="w-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
             >
-            @include('includes.back-button')
+            @include('includes.back-button', ['IndexRoute' => 'admin.driver.index'])
             <div class="w-auto overflow-visible rounded-lg shadow-xs">
                 <div class="w-auto overflow-x-auto">
                 <div class="flex flex-row">
@@ -42,12 +42,6 @@
                 </div>
             </div>
             </div>
-            <a href="{{ url()->route('admin.lorry.index') }}">
-            <button class="mr-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-2 border border-gray-400 rounded-lg shadow transition-colors duration-150">
-                <i data-feather="corner-down-left" class="mt-1"></i> 
-            </button>
-            </a>
-            
             
         </div>
 @endsection

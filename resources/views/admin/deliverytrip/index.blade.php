@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-<div class="container grid px-6 mx-auto">
+<div class="container grid px-6 mx-auto mb-6">
     <h2 class="mt-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Delivery Trip
     </h2>

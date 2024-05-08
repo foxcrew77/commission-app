@@ -1,7 +1,22 @@
 <div class="ml-4 flex justify-between mr-4 items-center space-x-4 text-sm">
-    <a href="{{ url()->route('admin.workman.index') }}">
+    <template x-if="dark">
+                <i class="back-icon" style="width:16px;height:16px;stroke-width:4;stroke:#9ca3af;" data-feather="corner-down-left" class="ml-2 my-2"></i> 
+
+            </template>
+            <template x-if="!dark">
+                <i class="back-icon" style="width:16px;height:16px;stroke-width:4;stroke:#9333ea;" data-feather="corner-down-left" class="ml-2 my-2"></i> 
+
+            </template>
+    <a href="{{ url()->route($IndexRoute) }}">
         {{-- <button class="mr-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-2 border border-gray-400 rounded-lg shadow transition-colors duration-150"> --}}
-            <i class="back-icon" style="width:16px;height:16px;stroke-width:4;stroke:#9333ea;" data-feather="corner-down-left" class="ml-2 my-2"></i> 
+            <template x-if="dark">
+                <i class="back-icon" style="width:16px;height:16px;stroke-width:4;stroke:#9ca3af;" data-feather="corner-down-left" class="ml-2 my-2"></i> 
+
+            </template>
+            <template x-if="!dark">
+                <i class="back-icon" style="width:16px;height:16px;stroke-width:4;stroke:#9333ea;" data-feather="corner-down-left" class="ml-2 my-2"></i> 
+
+            </template>
         {{-- </button> --}}
     </a>
     <div class="flex flex-row">

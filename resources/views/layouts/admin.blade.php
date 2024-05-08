@@ -30,6 +30,7 @@
           'GRAD' 0,
           'opsz' 22
         }
+        
         </style>
 
 </head>
@@ -61,5 +62,15 @@
 <script src="{{ asset("assets/js/init-alpine.js") }}"></script>
 <script src="{{ asset("assets/js/charts-lines.js") }}" defer></script>
 <script src="{{ asset("assets/js/charts-pie.js") }}" defer></script>
+<script>
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+    const newColorScheme = event.matches ? "dark" : "light";
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    alert('gelap');
+}
+    
+});
+
+</script>
 </body>
 </html>
