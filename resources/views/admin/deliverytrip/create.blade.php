@@ -13,7 +13,7 @@
               Elements
             </h4> --}}
             <div
-              class="px-4 py-2 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+              class="px-4 py-2 bg-white rounded-lg shadow-md dark:bg-gray-800"
             >
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Trip Date</span>
@@ -25,6 +25,7 @@
                   value="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
                   placeholder="Date"
                   x-on:click="open = true"
+                  autofocus
                 />
               </label>
               <label class="mt-4 block text-sm">
@@ -35,6 +36,7 @@
                   name="total_weight"
                   step="any"
                   type="number"
+                  {{ old('total_weight') }}
                   required
                 />
               </label>
@@ -46,6 +48,7 @@
                   class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                   name="lorry"
                   required
+                  {{ old('lorry') }}
                 >
                 <option value="" selected disabled>Please select lorry</option>
                 @foreach ($lorries as $lorry)
@@ -69,23 +72,15 @@
                 <option value="" selected disabled>Please select driver</option>
                 @foreach ($drivers as $driver)
                     
-                <option value="{{ $driver->name }}">{{ $driver->name }}</option>
+                <option value="{{ $driver->name }}">{{ $driver->name }}
+                  {{ old('driver') == $driver->name ? 'checked' : ''  }}
+                </option>
                 @endforeach
                 </select>
               </label>
             </div>
-            <div class="flex flex-row">
-              <button class="mr-4 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow transition-colors duration-150">
-                Cancel
-              </button>
-                <button
-                    class="flex flex-row px-4 py-1 text-sm font-semibold leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
-                    {{-- <div class="flex flex-row"> --}}
-                        <i data-feather="save" class="mt-1"></i>  
-                        <span class="mt-2">&nbsp;Save</span>
-                    {{-- </div> --}}
-                </button>
-            </div>
+            @component('components.navigation.save-cancel-button',['IndexRoute' => 'admin.lorry.index'])
+            @endcomponent
           </div>
 @endsection
 

@@ -16,7 +16,7 @@
               </h4>
               
               <div
-                class="w-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+                class="w-full px-4 py-3 bg-white rounded-lg shadow-md dark:bg-gray-800"
               >
               @include('includes.back-button', ['IndexRoute' => 'admin.lorry.index'])
               <div class="w-auto overflow-visible rounded-lg shadow-xs">
@@ -45,7 +45,9 @@
               </div>
             </div>
             
-            
+            @component('components.navigation.back-button',['IndexRoute' => 'admin.lorry.index'])
+                
+            @endcomponent
             
           </div>
           

@@ -23,7 +23,7 @@
             </h4>
             
             <div
-                class="w-full px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+                class="w-full px-4 py-3 bg-white rounded-lg shadow-md dark:bg-gray-800"
             >
             
             @include('includes.back-button', ['IndexRoute' => 'admin.workman.index'])
@@ -50,18 +50,8 @@
                 </div>
             </div>
             </div>
+            @component('components.navigation.back-button',['IndexRoute' => 'admin.workman.index'])
+                
+            @endcomponent
         </div>
-    <script>
-    // Check to see if Media-Queries are supported
-// if (window.matchMedia) {
-//   // Check if the dark-mode Media-Query matches
-//   if(window.matchMedia('(prefers-color-scheme: dark)').matches){
-//     alert('dark');
-//   } else {
-//     alert('light');
-//   }
-// } else {
-//   // Default (when Media-Queries are not supported)
-// }
-    </script>
 @endsection

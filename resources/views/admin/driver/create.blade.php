@@ -13,7 +13,7 @@
               Elements
             </h4> --}}
             <div
-              class="px-4 py-2 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+              class="px-4 py-2 bg-white rounded-lg shadow-md dark:bg-gray-800"
             >
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Name</span>
@@ -21,7 +21,9 @@
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="Jane Doe"
                   name="name"
+                  value="{{ old('name') }}"
                   required
+                  autofocus
                 />
               </label>
 
@@ -38,6 +40,7 @@
                       class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                       name="outlet"
                       value="KKIP"
+                      {{ old('outlet') == 'KKIP' ? 'checked' : ''  }}
                       required
                     />
                     <span class="ml-2">KKIP</span>
@@ -50,6 +53,7 @@
                       class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                       name="outlet"
                       value="KK2"
+                      {{ old('outlet') == 'KK2' ? 'checked' : ''  }}
                     />
                     <span class="ml-2">KK2</span>
                   </label>
@@ -61,6 +65,7 @@
                       class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                       name="outlet"
                       value="JB"
+                      {{ old('outlet') == 'JB' ? 'checked' : ''  }}
                     />
                     <span class="ml-2">JB</span>
                   </label>
@@ -79,7 +84,8 @@
                 </select>
               </label>
             </div>
-            @include('includes.save-cancel-button',['IndexRoute' => 'admin.driver.index'])
+            @component('components.navigation.save-cancel-button',['IndexRoute' => 'admin.lorry.index'])
+            @endcomponent
           </div>
 @endsection
 
