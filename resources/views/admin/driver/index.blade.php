@@ -21,7 +21,7 @@
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($drivers as $driver)
                     <tr 
-                        data-href="{{ route('admin.driver.show',['driver' => $driver->id]) }}"
+                        data-href="{{ route('admin.driver.show',['driver' => $driver->slug]) }}"
                         class="cursor-pointer hover:bg-gray-100 text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3 text-sm">{{ $drivers->firstItem() + $loop->index}}</td>
                         <td class="px-4 py-3 text-sm">{{ $driver->name }}</td>

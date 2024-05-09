@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DriverResourceController extends Controller
@@ -41,9 +42,11 @@ class DriverResourceController extends Controller
      * Display the specified resource.
      */
     public function show(Driver $driver)
-    {
+    {   
+        $created_by = User::find($driver->user_id);
         return view('admin.driver.show', [
             'driver' =>  $driver,
+            'created_by' => $created_by,
         ]);
     }
 

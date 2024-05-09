@@ -44,6 +44,7 @@
                                     autofocus
                             />
                         </label>
+                        <input type="text" hidden name="slug" value="slug">
                         <label class="block mt-4 text-sm">
                             <span class="text-gray-700 dark:text-gray-400">Email</span>
                             <input

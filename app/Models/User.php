@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'slug',
         'password',
     ];
 
@@ -56,5 +57,9 @@ class User extends Authenticatable
 
     public function workmen(){
         return $this->hasMany(Workman::class);
+    }
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

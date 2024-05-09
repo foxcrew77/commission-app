@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Lorry>
@@ -21,6 +22,7 @@ class LorryFactory extends Factory
         $faker->addProvider(new \Faker\Provider\FakeCar($faker));
         return [
             'plate_no' => $faker->vehicleRegistration,
+            'slug' => Str::random(5),
             'outlet' => $this->faker->randomElement(['KKIP', 'KK2']),
             'capacity' => $this->faker->randomElement([2200,2500,4000,8000]),
             'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),

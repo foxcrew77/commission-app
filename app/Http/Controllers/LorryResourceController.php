@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lorry;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LorryResourceController extends Controller
@@ -43,9 +44,10 @@ class LorryResourceController extends Controller
      */
     public function show(Lorry $lorry)
     {
-        // $lorries = Lorry::find($lorry);
+        $created_by = User::find($lorry->user_id);
         return view('admin.lorry.show', [
             'lorry' =>  $lorry,
+            'created_by' => $created_by,
         ]);
     }
 

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('lorries', function (Blueprint $table) {
             $table->id();
+            $table->string('slug');
             $table->string('plate_no');
             $table->string('outlet');
             $table->integer('capacity');

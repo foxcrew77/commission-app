@@ -9,6 +9,7 @@ use App\Models\Workman;
 
 use Database\Factories\Delivery_tripFactory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -49,6 +50,7 @@ class DatabaseSeeder extends Seeder
         }
         Lorry::create([
             'id' => 11,
+            'slug' => Str::random(5),
             'plate_no' => 'SAB 9946 C',
             'outlet' => 'KKIP',
             'capacity' => 4500,
@@ -57,6 +59,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Lorry::create([
             'id' => 12,
+            'slug' => Str::random(5),
             'plate_no' => 'SAB 9946',
             'outlet' => 'KK2',
             'capacity' => 6000,
@@ -65,6 +68,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Lorry::create([
             'id' => 13,
+            'slug' => Str::random(5),
             'plate_no' => 'SAB 9946 T',
             'outlet' => 'KKIP',
             'capacity' => 6500,
@@ -73,6 +77,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Lorry::create([
             'id' => 14,
+            'slug' => Str::random(5),
             'plate_no' => 'SAB 9946 E',
             'outlet' => 'KKIP',
             'capacity' => 8000,
@@ -81,6 +86,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Lorry::create([
             'id' => 15,
+            'slug' => Str::random(5),
             'plate_no' => 'SAB 9946 T',
             'outlet' => 'KKIP',
             'capacity' => 12000,
@@ -89,6 +95,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Lorry::create([
             'id' => 16,
+            'slug' => Str::random(5),
             'plate_no' => 'SAB 9946 W',
             'outlet' => 'KKIP',
             'capacity' => 13000,
@@ -97,6 +104,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Lorry::create([
             'id' => 17,
+            'slug' => Str::random(5),
             'plate_no' => 'W 337',
             'outlet' => 'KKIP',
             'capacity' => 16900,

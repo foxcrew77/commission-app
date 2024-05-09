@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('delivery_trips', function (Blueprint $table) {
             $table->id();
+            $table->string('slug');
             $table->date('trip_date');
             $table->decimal('total_weight',10,2);
             $table->unsignedBigInteger('user_id');

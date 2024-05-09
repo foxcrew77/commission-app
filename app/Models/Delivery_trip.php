@@ -25,4 +25,8 @@ class Delivery_trip extends Model
     public function workmen(){
         return $this->belongsToMany(Workman::class, 'delivery_trip_workman', 'delivery_trip_id', 'workman_id');
     }
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

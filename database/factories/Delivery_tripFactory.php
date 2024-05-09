@@ -4,6 +4,7 @@ namespace Database\Factories;
 use App\Models\User;
 use Faker;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -24,8 +25,9 @@ class Delivery_tripFactory extends Factory
             // 'id' => $this->faker->unique()->numberBetween(1, 100),
             // 'id' => User::inRandomOrder()->first()->id,
             'id' => $id++,
+            'slug' => Str::random(5),
             // 'id' => User::inRandomOrder()->first()->id,
-            'trip_date' => $this->faker->dateTime(),
+            'trip_date' => $this->faker->dateTimeBetween('-3 month', '+3 month'),
             // 'total_weight' => $this->faker->randomFloat(2),
             'total_weight' => $faker->randomFloat(1,100,17000),
             'user_id' => User::inRandomOrder()->first()->id,

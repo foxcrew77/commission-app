@@ -27,7 +27,7 @@
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($lorries as $lorry)
                     <tr 
-                        data-href="{{ route('admin.lorry.show',['lorry' => $lorry->id]) }}"
+                        data-href="{{ route('admin.lorry.show',['lorry' => $lorry->slug]) }}"
                         class="cursor-pointer hover:bg-gray-100 text-gray-700 dark:text-gray-400" >
                         <td class="px-4 py-3 text-sm">{{ $lorries->firstItem() + $loop->index}}</td>
                         <td class="px-4 py-3 text-sm">{{ $lorry->plate_no }}</td>

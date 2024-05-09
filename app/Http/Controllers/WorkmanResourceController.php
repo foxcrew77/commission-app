@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Workman;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class WorkmanResourceController extends Controller
@@ -42,8 +43,10 @@ class WorkmanResourceController extends Controller
      */
     public function show(Workman $workman)
     {
+        $created_by = User::find($workman->user_id);
         return view('admin.workman.show', [
             'workman' =>  $workman,
+            'created_by' => $created_by
         ]);
     }
 

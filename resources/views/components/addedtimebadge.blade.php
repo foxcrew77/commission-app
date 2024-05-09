@@ -1,0 +1,1 @@
+<span class="text-gray-500 text-xs">2 mins ago</span>

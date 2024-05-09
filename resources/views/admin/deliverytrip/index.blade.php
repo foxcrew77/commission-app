@@ -14,39 +14,6 @@
             </button>
         </a>
     </div>
-    {{-- <div class="my-2 flex sm:flex-row flex-col focus-within:text-purple-500">
-        <div class="flex flex-row mb-2 sm:mb-0">
-            <div class="relative">
-                <select
-                    class="w-full text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input">
-                    <option>All</option>
-                    <option selected>Active</option>
-                    <option>Inactive</option>
-                </select>
-            </div>
-        </div>
-        <div class="block relative text-purple-500">
-            <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
-                <svg
-                    class="w-4 h-4"
-                    aria-hidden="true"
-                    fill="#8549ff"
-                    viewBox="0 0 20 20"
-            >
-                <path
-                        fill-rule="evenodd"
-                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                        clip-rule="evenodd"
-                ></path>
-            </svg>
-            </span>
-            <input 
-            class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-            type="text"
-            placeholder="Search for delivery trip"
-            aria-label="Search" />
-        </div>
-    </div> --}}
     {{ $delivery_trip->links() }}
     
     <div class="w-full overflow-visible rounded-lg shadow-xs">
@@ -57,32 +24,39 @@
                 <thead>
                     <tr
                         class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-4 py-3">No.</th>
-                        <th class="px-4 py-3">Date</th>
-                        <th class="px-4 py-3">Total Weight</th>
-                        <th class="px-4 py-3">Lorry</th>
-                        <th class="px-4 py-3">Driver</th>
-                        <th class="px-4 py-3">Workmen</th>
-                        <th class="px-4 py-3">Outlet</th>
-                        <th class="px-4 py-3">Actions</th>
+                        <th class="px-4">No.</th>
+                        <th class="px-4">Date</th>
+                        <th class="px-4">Total Weight</th>
+                        <th class="px-4">Lorry</th>
+                        <th class="px-4">Driver</th>
+                        <th class="px-4">Workmen</th>
+                        <th class="px-4">Outlet</th>
+                        <th class="px-4">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($delivery_trip as $trip)
                     <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3 text-sm">{{ $delivery_trip->firstItem() + $loop->index}}</td>
-                        <td class="flex flex-col px-4 py-2 text-sm">
-                                <span class="mt-2">{{ date('d-m-Y', strtotime($trip->trip_date)); }}</span>
-                                <span class="text-gray-500 text-xs">{{ date('H:i:s', strtotime($trip->trip_date)); }}</span>
+                        <td class="px-4 text-sm">{{ $delivery_trip->firstItem() + $loop->index}}</td>
+                        <td class="flex flex-row gap-px px-4 py-3 text-sm">
+                                <div class="mr-2 flex items-center">
+                                    <span class="block ">{{ date('d-m-Y', strtotime($trip->trip_date)); }}</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    @component('components.newbadge')
+                                    @endcomponent
+                                    <span class="text-gray-500 text-xs">{{ $trip->created_at->shortRelativeDiffForHumans() }}</span>
+                                </div>
+
                         </td>
-                        <td class="px-4 py-3 text-sm">
+                        <td class="px-4 text-sm">
                             {{ $trip->total_weight }}
                         </td>
-                        <td class="flex flex-col px-4 py-3 text-sm">
+                        <td class="flex flex-col px-4 text-sm">
                             <span class="mt-2">{{ $trip->lorries()->get()[0]->plate_no}}</span>
                             <span class="text-gray-500 text-xs">{{ $trip->lorries()->get()[0]->capacity}} KG</span>
                         </td>
-                        <td class="px-4 py-3 text-sm">
+                        <td class="px-4 text-sm">
                             {{ $trip->drivers()->get()[0]->name }}
                         </td>
                         <td class="px-4 py-3 text-sm">
@@ -93,10 +67,10 @@
                             @endforeach
                             
                         </td>
-                        <td class="px-4 py-3 text-sm">
+                        <td class="px-4 text-sm">
                             {{ $trip->lorries()->get()[0]->outlet}}
                         </td>
-                        <td class="px-4 py-3">
+                        <td class="px-4">
                             <div class="flex items-center space-x-4 text-sm">
                                 <button
                                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"

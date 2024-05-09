@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Workman>
@@ -19,6 +20,7 @@ class WorkmanFactory extends Factory
     {
         return [
             'name' => fake()->name(1,15),
+            'slug' => Str::random(5),
             'position' => 'workman',
             'outlet' => $this->faker->randomElement(['KKIP', 'KK2']),
             'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
