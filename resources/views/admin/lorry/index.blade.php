@@ -1,10 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class="container grid px-6 mx-auto mb-6">
-    @if(session()->has('success'))
-    @component('components.success-add',['message' => session('success')])
-    @endcomponent
-    @endif
+    
     @component('components.tables.table-title', ['title' => 'Lorry'])
     @endcomponent
     @component('components.tables.index-table-filter',[

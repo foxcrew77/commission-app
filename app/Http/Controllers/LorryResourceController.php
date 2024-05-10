@@ -35,25 +35,31 @@ class LorryResourceController extends Controller
      */
     public function store(Request $request)
     {
-        $letter = preg_split('/\d+/', $request->plate_no);
-        $number = preg_match("/([0-9]+)/", $request->plate_no, $matches);
+        $found = Lorry::where('slug',$request->slug)->count();
+        if($found != 0) {
+            return redirect(route('admin.lorry.create'))->with('failed', 'Lorry has already exists in database!');
+        } else {
+            $letter = preg_split('/\d+/', $request->plate_no);
+            $number = preg_match("/([0-9]+)/", $request->plate_no, $matches);
 
-        $request->merge([  //replace plate_no with new value
+            $request->merge([  //replace plate_no with new value
             'plate_no' => strtoupper($letter[0]).' '.$matches[1].' '.strtoupper($letter[1]),
-        ]);
-        $validatedData = $request->validate([
-            'slug' => 'required|unique:lorries|max:255',
-            'plate_no' => 'required|max:255',
-            'capacity' => 'required',
-            'outlet' => 'required|max:255',
-            'status' => 'required'
-        ]);
+            ]);
+            $validatedData = $request->validate([
+                'slug' => 'required|unique:lorries|max:255',
+                'plate_no' => 'required|max:255',
+                'capacity' => 'required',
+                'outlet' => 'required|max:255',
+                'status' => 'required'
+            ]);
         
-        $validatedData['user_id'] = auth()->user()->id; //take current user as user_id
+            $validatedData['user_id'] = auth()->user()->id; //take current  user as user_id
 
-        Lorry::create($validatedData);
+            Lorry::create($validatedData);
 
-        return redirect(route('admin.lorry.index'))->with('success', 'New Lorry has been added');
+            return redirect(route('admin.lorry.index'))->with('success', 'New   Lorry has been added');
+        }
+        
     }
 
     /**

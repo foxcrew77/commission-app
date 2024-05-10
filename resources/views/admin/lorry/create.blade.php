@@ -1,11 +1,17 @@
 @extends('layouts.admin')
 @section('content')
           <div class="container px-6 mx-auto grid">
-            <h2
+            <div class="flex">
+              <h2
               class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
-            >
+              >
               Add New Lorry
-            </h2>
+              </h2>
+              @if(session()->has('failed'))
+              @component('components.failed-add',['message' => session ('failed')])
+              @endcomponent
+              @endif
+            </div>
             <form action="{{ route('admin.lorry.store') }}" method="post">
             @csrf
             <div

@@ -35,7 +35,29 @@ class DriverResourceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $found = Driver::where('slug',$request->slug)->count();
+        if($found != 0) {
+            return redirect(route('admin.driver.create'))->with('failed', 'Driver has already exists in database!');
+        } else {
+
+            $request->merge([  //replace plate_no with new value
+            'name' => ucfirst(strtolower( $request->name)),
+            ]);
+            $validatedData = $request->validate([
+                'slug' => 'required|unique:lorries|max:255',
+                'name' => 'required|max:255',
+                'position' => 'required|max:255',
+                'outlet' => 'required|max:255',
+                'status' => 'required'
+            ]);
+        
+            $validatedData['user_id'] = auth()->user()->id; //take current  user as user_id
+
+            Driver::create($validatedData);
+
+            return redirect(route('admin.driver.index'))->with('success', 'New Driver has been added');
+        }
+        
     }
 
     /**
