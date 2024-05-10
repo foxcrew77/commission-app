@@ -1,17 +1,8 @@
 @extends('layouts.admin')
 @section('content')
           <div class="container px-6 mx-auto grid">
-            <div class="flex">
-              <h2
-              class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
-              >
-              Add New Driver
-              </h2>
-              @if(session()->has('failed'))
-              @component('components.failed-add',['message' => session ('failed')])
-              @endcomponent
-              @endif
-            </div>
+            @component('components.tables.create-title',['item' => 'Driver'])
+            @endcomponent
             <form action="{{ route('admin.driver.store') }}" method="post">
               @csrf
               <div
