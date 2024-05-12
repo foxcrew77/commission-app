@@ -18,7 +18,11 @@
             aria-label="Search" />
         </div>
     </div>
-    <div class="">
+    <div class="w-64">
+        @component('components.success-add',['message' => session('success')])
+        @endcomponent
+    </div>
+    <div class="pl-22">
         <a href="{{ route( $createRoute )}}">
             <button
                     class="flex items-center justify-between px-4 w-full py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
