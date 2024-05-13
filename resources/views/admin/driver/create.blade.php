@@ -81,8 +81,8 @@
             </div>
             @component('components.navigation.save-cancel-button',['IndexRoute' => 'admin.driver.index'])
             @endcomponent
-          </form>
           </div>
+        </form>
           <script>
             const name = document.querySelector('#name');
             const slug = document.querySelector('#slug');

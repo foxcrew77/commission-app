@@ -3,20 +3,25 @@
           <div class="container px-6 mx-auto grid">
             @component('components.tables.create-title',['item' => 'Workman'])
             @endcomponent
-            <div
+            <form action="{{ route('admin.workman.store') }}" method="post">
+              @csrf
+              <div
               class="px-4 py-2 bg-white rounded-lg shadow-md dark:bg-gray-800"
             >
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Name</span>
                 <input
+                id="name"
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="Jane Doe"
+                  name="name"
                   {{ old('name') }}
                   required
                   autofocus
                 />
               </label>
-
+              <input type="text" id="slug" name="slug" hidden>
+              <input type="text" id="position" name="position" value="workman" hidden>
               <div class="mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">
                   Outlet
@@ -28,7 +33,7 @@
                     <input
                       type="radio"
                       class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                      name="accountType"
+                      name="outlet"
                       value="KKIP"
                       {{ old('outlet') == 'KKIP' ? 'checked' : ''  }}
                       required
@@ -41,7 +46,7 @@
                     <input
                       type="radio"
                       class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                      name="accountType"
+                      name="outlet"
                       value="KK2"
                       {{ old('outlet') == 'KK2' ? 'checked' : ''  }}
                       
@@ -54,7 +59,7 @@
                     <input
                       type="radio"
                       class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                      name="accountType"
+                      name="outlet"
                       value="JB"
                       {{ old('outlet') == 'JB' ? 'checked' : ''  }}
                     />
@@ -75,9 +80,21 @@
                 </select>
               </label>
             </div>
-            @component('components.navigation.save-cancel-button',['IndexRoute' => 'admin.lorry.index'])
+            @component('components.navigation.save-cancel-button',['IndexRoute' => 'admin.workman.index'])
             @endcomponent
           </div>
+            </form>
+          <script>
+            const name = document.querySelector('#name');
+            const slug = document.querySelector('#slug');
+            
+            name.addEventListener("keyup", function() {
+                    let preslug = name.value;
+                    preslug = preslug.replace(/ /g,"-");
+                    slug.value = preslug.toLowerCase();
+                });
+
+        </script>
 @endsection
 
 

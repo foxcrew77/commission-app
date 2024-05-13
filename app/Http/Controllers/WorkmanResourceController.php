@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Workman;
+use App\Models\Driver;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,28 @@ class WorkmanResourceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $found = Workman::where('slug',$request->slug)->count();
+        $found += Driver::where('slug',$request->slug)->count();
+        if($found != 0) {
+            return redirect(route('admin.workman.create'))->with('failed', 'Workman already exists!');
+        } else {
+            $request->merge([  //replace name with new value
+                'name' => implode(' ',array_map('ucfirst', explode(' ',$request->name))),
+            ]);
+            $validatedData = $request->validate([
+                'slug' => 'required|unique:lorries|max:255',
+                'name' => 'required|max:255',
+                'position' => 'required|max:255',
+                'outlet' => 'required|max:255',
+                'status' => 'required'
+            ]);
+        
+            $validatedData['user_id'] = auth()->user()->id; //take current  user as user_id
+
+            Workman::create($validatedData);
+
+            return redirect(route('admin.workman.index'))->with('success', 'New Workman has been added.');
+        }
     }
 
     /**

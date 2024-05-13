@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Driver;
+use App\Models\Workman;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -36,12 +37,13 @@ class DriverResourceController extends Controller
     public function store(Request $request)
     {
         $found = Driver::where('slug',$request->slug)->count();
+        $found += Workman::where('slug',$request->slug)->count();
         if($found != 0) {
-            return redirect(route('admin.driver.create'))->with('failed', 'Driver has already exists in database!');
+            return redirect(route('admin.driver.create'))->with('failed', 'Driver already exists!');
         } else {
 
             $request->merge([  //replace plate_no with new value
-            'name' => ucfirst(strtolower( $request->name)),
+                'name' => implode(' ',array_map('ucfirst', explode(' ',$request->name))),
             ]);
             $validatedData = $request->validate([
                 'slug' => 'required|unique:lorries|max:255',
@@ -55,7 +57,7 @@ class DriverResourceController extends Controller
 
             Driver::create($validatedData);
 
-            return redirect(route('admin.driver.index'))->with('success', 'New Driver has been added');
+            return redirect(route('admin.driver.index'))->with('success', 'New Driver has been added.');
         }
         
     }

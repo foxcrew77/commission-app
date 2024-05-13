@@ -37,7 +37,7 @@ class LorryResourceController extends Controller
     {
         $found = Lorry::where('slug',$request->slug)->count();
         if($found != 0) {
-            return redirect(route('admin.lorry.create'))->with('failed', 'Lorry has already exists in database!');
+            return redirect(route('admin.lorry.create'))->with('failed', 'Lorry already exists!');
         } else {
             $letter = preg_split('/\d+/', $request->plate_no);
             $number = preg_match("/([0-9]+)/", $request->plate_no, $matches);
@@ -57,7 +57,7 @@ class LorryResourceController extends Controller
 
             Lorry::create($validatedData);
 
-            return redirect(route('admin.lorry.index'))->with('success', 'New   Lorry has been added');
+            return redirect(route('admin.lorry.index'))->with('success', 'New Lorry has been added.');
         }
         
     }

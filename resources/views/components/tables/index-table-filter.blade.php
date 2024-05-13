@@ -18,10 +18,6 @@
             aria-label="Search" />
         </div>
     </div>
-    <div class="w-64">
-        @component('components.success-add',['message' => session('success')])
-        @endcomponent
-    </div>
     <div class="pl-22">
         <a href="{{ route( $createRoute )}}">
             <button
@@ -33,3 +29,11 @@
     </a>
     </div>
 </div>
+@if(session()->has('success'))
+<div class="w-10/12 z-4 mb-2">
+    @component('components.success-add',['components' => 'success-add', 'message' => session('success')])
+    @endcomponent
+</div>
+@endif
+    
+ 

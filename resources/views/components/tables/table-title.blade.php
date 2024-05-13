@@ -8,7 +8,7 @@
     {{-- <div class="">
         @component('components.success-add',['message' => session('success')])
         @endcomponent
-    </div> --}}
+    </div>
    
     
     {{-- @endif --}}

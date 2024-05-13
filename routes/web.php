@@ -49,5 +49,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'admin.
     });
 });
 
+route::get('/z-index', function(){
+    return view('zindex');
+});
 
 require __DIR__ . '/auth.php';
