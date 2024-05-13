@@ -31,11 +31,13 @@ class DeliveryResourceController extends Controller
         $lorries = Lorry::orderBy('capacity','ASC')->get()->unique('capacity');
         $drivers = Driver::orderBy('name','ASC')->get();
         $workmen = Workman::orderBy('name','ASC')->get();
+        $workmenJson = json_encode($workmen);
         return view('admin.deliverytrip.create', [
             'title' => 'Add New Delivery Trip',
             'lorries' => $lorries,
             'drivers' => $drivers,
-            'workmen' => $workmen
+            'workmen' => $workmen,
+            'workmenJson' => $workmenJson
         ]);
     }
 

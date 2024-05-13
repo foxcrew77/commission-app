@@ -48,7 +48,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'admin.
         Route::view('/login-page', 'admin.pages.login')->name('login');
     });
 });
-
+route::get('/multidropdown',function(){
+    return view('multidropdown');
+});
 route::get('/z-index', function(){
     return view('zindex');
 });

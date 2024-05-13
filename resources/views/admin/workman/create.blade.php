@@ -83,7 +83,7 @@
             @component('components.navigation.save-cancel-button',['IndexRoute' => 'admin.workman.index'])
             @endcomponent
           </div>
-            </form>
+        </form>
           <script>
             const name = document.querySelector('#name');
             const slug = document.querySelector('#slug');

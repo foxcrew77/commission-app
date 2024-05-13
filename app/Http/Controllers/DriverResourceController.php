@@ -39,7 +39,7 @@ class DriverResourceController extends Controller
         $found = Driver::where('slug',$request->slug)->count();
         $found += Workman::where('slug',$request->slug)->count();
         if($found != 0) {
-            return redirect(route('admin.driver.create'))->with('failed', 'Driver already exists!');
+            return redirect(route('admin.driver.create'))->with('failed', 'The staff you have entered already exists!');
         } else {
 
             $request->merge([  //replace plate_no with new value

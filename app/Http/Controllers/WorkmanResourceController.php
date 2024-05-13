@@ -6,6 +6,7 @@ use App\Models\Workman;
 use App\Models\Driver;
 use App\Models\User;
 use Illuminate\Http\Request;
+use DB;
 
 class WorkmanResourceController extends Controller
 {
@@ -39,7 +40,7 @@ class WorkmanResourceController extends Controller
         $found = Workman::where('slug',$request->slug)->count();
         $found += Driver::where('slug',$request->slug)->count();
         if($found != 0) {
-            return redirect(route('admin.workman.create'))->with('failed', 'Workman already exists!');
+            return redirect(route('admin.workman.create'))->with('failed', 'The staff you have entered already exists');
         } else {
             $request->merge([  //replace name with new value
                 'name' => implode(' ',array_map('ucfirst', explode(' ',$request->name))),
