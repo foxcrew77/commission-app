@@ -51,6 +51,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'admin.
 route::get('/multidropdown',function(){
     return view('multidropdown');
 });
+
+route::get('/workmendropdown', [WorkmanResourceController::class, 'workmenDropdown']);
 route::get('/z-index', function(){
     return view('zindex');
 });

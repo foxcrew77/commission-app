@@ -77,19 +77,12 @@
                   x-data="multiselect(
                   { 
 
-                    items: [
-                      {{-- { label: @json($workmen[0]->name), value: @json($workmen[0]->name) },  --}}
-                      { label: 'Blue', value:  '#0000FF' }, 
-                      { label: 'Green', value: '#00FF00' },
-                      { label: 'Red', value: '#FF0000' },
-                      { label: 'Yellow', value: '#FFFF00' },
-                      { label: 'Gray', value: '#CCC' },
-                      { label: 'I am a very long value and will show a maximum of 50 chars!', value: '#FF0F0E' },
-                    ]
+                    items: []
                     ,
                     size: 6,
                   })"
                   x-init="onInit"
+                  {{-- x-init.two="items = await (await fetch('http://commission-app.test/workmendropdown'))" --}}
                   @focusout="handleBlur"
                   class="relative"
                 >
@@ -187,7 +180,7 @@
           <script>
             function multiselect(config) {
               return {
-                items: config.items ?? [],
+                items: await (await fetch('http://commission-app.test/workmendropdown')),
           
                 allItems: null,
           
@@ -214,6 +207,7 @@
                 activeIndex: -1,
           
                 onInit() {
+                  items = await (await fetch('http://commission-app.test/workmendropdown'));
                   // Set the allItems array since we want to filter later on and keep the original (items) array as reference
                   this.allItems = [...this.items];
           

@@ -33,17 +33,18 @@
         x-data="multiselect(
         { 
           items: [
-              { label: 'Magenta', value: '#ff00ff' }, 
-              { label: 'Blue', value:  '#0000FF' }, 
-              { label: 'Green', value: '#00FF00' },
-              { label: 'Red', value: '#FF0000' },
-              { label: 'Yellow', value: '#FFFF00' },
-              { label: 'Gray', value: '#CCC' },
-              { label: 'I am a very long value and will show a maximum of 50 chars!', value: '#FF0F0E' },
+              {{-- { id: 'Magenta', title: '#ff00ff' }, 
+              { id: 'Blue', title:  '#0000FF' }, 
+              { id: 'Green', title: '#00FF00' },
+              { id: 'Red', title: '#FF0000' },
+              { id: 'Yellow', title: '#FFFF00' },
+              { id: 'Gray', title: '#CCC' },
+              { id: 'I am a very long title and will show a maximum of 50 chars!', title: '#FF0F0E' }, --}}
           ],
           size: 6,
         })"
-        x-init="onInit"
+        x-init.one="onInit"
+        x-init.two="items = await (await fetch('http://commission-app.test/workmendropdown'))"
         @focusout="handleBlur"
         class="relative"
       >
@@ -140,7 +141,7 @@
 <script>
   function multiselect(config) {
     return {
-      items: config.items ?? [],
+      items: await (await fetch('http://commission-app.test/workmendropdown')),
 
       allItems: null,
 
