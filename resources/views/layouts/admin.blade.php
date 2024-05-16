@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="The modern, accessible and dark theme ready HTML dashboard. Full of custom, reusable components to speed up the development of admin panels.">
     <meta name="author" content="abdulbasit-dev">
-    {{-- @vite('resources/css/app.css') --}}
+    {{-- @vite('resources/css/app.css')
+    @vite(['resources/js/app.js']) --}}
     <title>Laravel Windmill Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 
@@ -24,6 +25,7 @@
 
     {{-- alpine js --}}
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {{-- activating this will produce two darkmode button --}}
 
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
     <style>
@@ -62,6 +64,7 @@
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script>feather.replace();</script>
 <script src="{{ asset("assets/js/alpine.min.js") }}" defer></script>
+{{-- <script src="{{ asset("assets/js/multiselect.js") }}" defer></script> --}}
 <script src="{{ asset("assets/js/Chart.min.js") }}" defer></script>
 <script src="{{ asset("assets/js/init-alpine.js") }}"></script>
 <script src="{{ asset("assets/js/charts-lines.js") }}" defer></script>
