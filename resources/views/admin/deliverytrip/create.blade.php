@@ -74,7 +74,7 @@
               <div class="flex justify-center mt-8">
                 <!-- Define component with preselected options -->
                 {{-- <div class="w-full" x-data="alpineMuliSelect({selected:['te_11', 'te_12'], elementId:'multSelect'})"> --}}
-                <div class="w-full" x-data="alpineMuliSelect({selected:['te_11', 'te_12'], elementId:'multSelect'})" x-init="workman = await (await fetch('http://commission-app.test/workmendropdown'))">
+                <div class="w-full" x-data="alpineMuliSelect({optionss = [],selected:['te_11', 'te_12'], elementId:'multSelect'})" x-init="optionss = await (await fetch('http://commission-app.test/workmendropdown')).json()">
 
                     <!-- Select Options -->
                     <select class="hidden" id="multSelect">
@@ -101,8 +101,8 @@
                     </select>
 
                     <div class="w-full flex flex-col items-center h-64 mx-auto" @keyup.alt="toggle">
-                        <!-- Selected Teams -->
-                        <input name="teams[]" type="hidden" x-bind:value="selectedValues()">
+                        <!-- Selected Workmen -->
+                        <input name="workmen[]" type="hidden" x-bind:value="selectedValues()">
 
                         <div class="inline-block relative w-full">
 
@@ -252,9 +252,11 @@
 
                     // Initializing component 
                     init() {
+                        
+                        
                         const options = document.getElementById(this.elementId).options;
                         for (let i = 0; i < options.length; i++) {
-
+                            
                             this.options.push({
                                 value: options[i].value,
                                 text: options[i].innerText,
@@ -288,6 +290,10 @@
 
                         }));
                     },
+                    // populate data
+                    populateData(){
+                        // optionss = await (await fetch('http://commission-app.test/workmendropdown')).json();
+                    }
                     // clear search field
                     clear() {
                         this.search = ''

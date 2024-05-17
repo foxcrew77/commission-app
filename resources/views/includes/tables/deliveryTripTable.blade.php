@@ -4,7 +4,7 @@
             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
             <th class="px-4">No.</th>
             <th class="px-4">Date</th>
-            <th class="px-4">Total Weight</th>
+            <th class="px-4">Total Weight (KG)</th>
             <th class="px-4">Lorry</th>
             <th class="px-4">Driver</th>
             <th class="px-4">Workmen</th>
