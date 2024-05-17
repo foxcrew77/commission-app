@@ -28,11 +28,14 @@ class DeliveryResourceController extends Controller
      */
     public function create()
     {
-        $workmenDropdown = new \Illuminate\Database\Eloquent\Collection; 
-        $workmen = Workman::select('id','name','position')->orderBy('id','desc')->get(); 
-        $drivers = Driver::select('id','name','position')->orderBy('id','desc')->get(); 
-        $workmenDropdown = $workmenDropdown->merge($workmen);
-        $workmenDropdown = $workmenDropdown->merge($drivers);
+        // $workmenDropdown = new \Illuminate\Database\Eloquent\Collection; 
+        // $workmen = Workman::select('id','name','position')->orderBy('id','desc')->get(); 
+        // $drivers = Driver::select('id','name','position')->orderBy('id','desc')->get(); 
+        // $workmenDropdown = $workmenDropdown->merge($workmen);
+        // $workmenDropdown = $workmenDropdown->merge($drivers);
+        $workmen = Workman::orderBy('id','desc')->get(); 
+        $drivers = Driver::orderBy('id','desc')->get(); 
+        $workmenDropdown = $workmen->concat($drivers);
         $lorries = Lorry::orderBy('capacity','ASC')->get()->unique('capacity');
         // $drivers = Driver::orderBy('name','ASC')->get();
         // $workmen = Workman::orderBy('name','ASC')->get();
