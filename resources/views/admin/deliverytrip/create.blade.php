@@ -73,31 +73,13 @@
 
               <div class="flex justify-center mt-8">
                 <!-- Define component with preselected options -->
-                {{-- <div class="w-full" x-data="alpineMuliSelect({selected:['te_11', 'te_12'], elementId:'multSelect'})"> --}}
-                <div class="w-full" x-data="alpineMuliSelect({optionss = [],selected:['te_11', 'te_12'], elementId:'multSelect'})" x-init="optionss = await (await fetch('http://commission-app.test/workmendropdown')).json()">
-
+                <div class="w-full" x-data="alpineMuliSelect({selected:['te_11', 'te_12'], elementId:'multSelect'})">
+                    
                     <!-- Select Options -->
                     <select class="hidden" id="multSelect">
-                        <option value="te_1" data-search="arsenal">Arsenal</option>
-                        <option value="te_2" data-search="aston villa">Aston Villa</option>
-                        <option value="te_3" data-search="Brentford">Brentford</option>
-                        <option value="te_4" data-search="Brighton">Brighton</option>
-                        <option value="te_5" data-search="Burnley">Burnley</option>
-                        <option value="te_6" data-search="Chelsea">Chelsea</option>
-                        <option value="te_7" data-search="Crystal Palace">Crystal Palace</option>
-                        <option value="te_8" data-search="Everton">Everton</option>
-                        <option value="te_10" data-search="Leeds">Leeds</option>
-                        <option value="te_9" data-search="Leicester">Leicester</option>
-                        <option value="te_11" data-search="Liverpool">Liverpool</option>
-                        <option value="te_12" data-search="Manchester City">Man City</option>
-                        <option value="te_13" data-search="Manchester Utd">Man Utd</option>
-                        <option value="te_14" data-search="Newcastle">Newcastle</option>
-                        <option value="te_15" data-search="Norwich">Norwich</option>
-                        <option value="te_16" data-search="Southampton">Southampton</option>
-                        <option value="te_17" data-search="Tottenham Hotspur spurs">Spurs</option>
-                        <option value="te_18" data-search="Watford">Watford</option>
-                        <option value="te_19" data-search="West Ham">West Ham</option>
-                        <option value="te_20" data-search="Wolves">Wolves</option>
+                        @foreach ($workmenDropdown as $workmen)
+                        <option value="{{ $workmen->position }}-{{ $workmen->name }}" data-search="{{ $workmen->name }}">{{ $workmen->name }}</option>
+                        @endforeach
                     </select>
 
                     <div class="w-full flex flex-col items-center h-64 mx-auto" @keyup.alt="toggle">
@@ -230,128 +212,119 @@
           </div>
           <script defer>
             document.addEventListener("alpine:init", () => {
-                Alpine.data("alpineMuliSelect", (obj) => ({
-                    elementId: obj.elementId,
-                    options: [],
-                    selected: obj.selected,
-                    selectedElms: [],
-                    show: false,
-                    search: '',
-                    open() {
-                        this.show = true
-                    },
-                    close() {
-                        this.show = false
-                    },
-                    toggle() {
-                        this.show = !this.show
-                    },
-                    isOpen() {
-                        return this.show === true
-                    },
+   Alpine.data("alpineMuliSelect", (obj) => ({
+       elementId: obj.elementId,
+       options: [],
+       selected: obj.selected,
+       selectedElms: [],
+       show: false,
+       search: '',
+       open() {
+           this.show = true
+       },
+       close() {
+           this.show = false
+       },
+       toggle() {
+           this.show = !this.show
+       },
+       isOpen() {
+           return this.show === true
+       },
+       
+       // Initializing component 
+       init() {
+           const options = document.getElementById(this.elementId).options;
+           for (let i = 0; i < options.length; i++) {
 
-                    // Initializing component 
-                    init() {
-                        
-                        
-                        const options = document.getElementById(this.elementId).options;
-                        for (let i = 0; i < options.length; i++) {
-                            
-                            this.options.push({
-                                value: options[i].value,
-                                text: options[i].innerText,
-                                search: options[i].dataset.search,
-                                selected: Object.values(this.selected).includes(options[i].value)
-                            });
+               this.options.push({
+                   value:  options[i].value,
+                   text:   options[i].innerText,
+                   search: options[i].dataset.search,
+                   selected: Object.values(this.selected).includes(options[i].value)
+               });
 
-                            if (this.options[i].selected) {
-                                this.selectedElms.push(this.options[i])
-                            }
-                        }
+               if (this.options[i].selected) {
+                   this.selectedElms.push(this.options[i])
+               }
+           }
 
-                        // searching for the given value
-                        this.$watch("search", (e => {
-                            this.options = []
-                            const options = document.getElementById(this.elementId).options;
-                            Object.values(options).filter((el) => {
-                                var reg = new RegExp(this.search, 'gi');
-                                return el.dataset.search.match(reg)
-                            }).forEach((el) => {
-                                let newel = {
-                                    value: el.value,
-                                    text: el.innerText,
-                                    search: el.dataset.search,
-                                    selected: Object.values(this.selected).includes(el.value)
-                                }
-                                this.options.push(newel);
+           // searching for the given value
+           this.$watch("search", (e => {
+               this.options = []
+               const options = document.getElementById(this.elementId).options;
+               Object.values(options).filter((el) => {
+                   var reg = new RegExp(this.search, 'gi');
+                   return el.dataset.search.match(reg)
+               }).forEach((el) => {
+                   let newel = {
+                       value: el.value,
+                       text: el.innerText,
+                       search: el.dataset.search,
+                       selected: Object.values(this.selected).includes(el.value)
+                   }
+                   this.options.push(newel);
+               })
+           }));
+       },
+       // clear search field
+       clear() {
+           this.search = ''
+       },
+       // deselect selected options
+       deselect() {
+           setTimeout(() => {
+               this.selected = []
+               this.selectedElms = []
+               Object.keys(this.options).forEach((key) => {
+                   this.options[key].selected = false;
+               })
+           }, 100)
+       },
+       // select given option
+       select(index, event) {
+           if (!this.options[index].selected) {
+               this.options[index].selected = true;
+               this.options[index].element = event.target;
+               this.selected.push(this.options[index].value);
+               this.selectedElms.push(this.options[index]);
 
-                            })
-
-
-                        }));
-                    },
-                    // populate data
-                    populateData(){
-                        // optionss = await (await fetch('http://commission-app.test/workmendropdown')).json();
-                    }
-                    // clear search field
-                    clear() {
-                        this.search = ''
-                    },
-                    // deselect selected options
-                    deselect() {
-                        setTimeout(() => {
-                            this.selected = []
-                            this.selectedElms = []
-                            Object.keys(this.options).forEach((key) => {
-                                this.options[key].selected = false;
-                            })
-                        }, 100)
-                    },
-                    // select given option
-                    select(index, event) {
-                        if (!this.options[index].selected) {
-                            this.options[index].selected = true;
-                            this.options[index].element = event.target;
-                            this.selected.push(this.options[index].value);
-                            this.selectedElms.push(this.options[index]);
-
-                        } else {
-                            this.selected.splice(this.selected.lastIndexOf(index), 1);
-                            this.options[index].selected = false
-                            Object.keys(this.selectedElms).forEach((key) => {
-                                if (this.selectedElms[key].value == this.options[index].value) {
-                                    setTimeout(() => {
-                                        this.selectedElms.splice(key, 1)
-                                    }, 100)
-                                }
-                            })
-                        }
-                    },
-                    // remove from selected option
-                    remove(index, option) {
-                        this.selectedElms.splice(index, 1);
-                        Object.keys(this.options).forEach((key) => {
-                            if (this.options[key].value == option.value) {
-                                this.options[key].selected = false;
-                                Object.keys(this.selected).forEach((skey) => {
-                                    if (this.selected[skey] == option.value) {
-                                        this.selected.splice(skey, 1);
-                                    }
-                                })
-                            }
-                        })
-                    },
-                    // filter out selected elements
-                    selectedElements() {
-                        return this.options.filter(op => op.selected === true)
-                    },
-                    // get selected values
-                    selectedValues() {
-                        return this.options.filter(op => op.selected === true).map(el => el.value)
-                    }
-                }));
-            });
+           } else {
+               this.selected.splice(this.selected.lastIndexOf(index), 1);
+               this.options[index].selected = false
+               Object.keys(this.selectedElms).forEach((key) => {
+                   if (this.selectedElms[key].value == this.options[index].value) {
+                       setTimeout(() => {
+                           this.selectedElms.splice(key, 1)
+                       }, 100)
+                   }
+               })
+           }
+       },
+       // remove from selected option
+       remove(index, option) {
+           this.selectedElms.splice(index, 1);
+           Object.keys(this.options).forEach((key) => {
+               if (this.options[key].value == option.value) {
+                   this.options[key].selected = false;
+                   Object.keys(this.selected).forEach((skey) => {
+                       if (this.selected[skey] == option.value) {
+                           this.selected.splice(skey, 1);
+                       }
+                   })
+               }
+           })
+       },
+       // filter out selected elements
+       selectedElements() {
+           return this.options.filter(op => op.selected === true)
+       },
+       // get selected values
+       selectedValues() {
+           return this.options.filter(op => op.selected === true).map(el => el.value)
+       }
+   }));
+});
 
             // ESC keystroke to clear search
             document.onkeydown = function(e){

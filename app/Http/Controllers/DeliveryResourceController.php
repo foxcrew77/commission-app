@@ -28,16 +28,21 @@ class DeliveryResourceController extends Controller
      */
     public function create()
     {
+        $workmenDropdown = new \Illuminate\Database\Eloquent\Collection; 
+        $workmen = Workman::select('id','name','position')->orderBy('id','desc')->get(); 
+        $drivers = Driver::select('id','name','position')->orderBy('id','desc')->get(); 
+        $workmenDropdown = $workmenDropdown->merge($workmen);
+        $workmenDropdown = $workmenDropdown->merge($drivers);
         $lorries = Lorry::orderBy('capacity','ASC')->get()->unique('capacity');
-        $drivers = Driver::orderBy('name','ASC')->get();
-        $workmen = Workman::orderBy('name','ASC')->get();
+        // $drivers = Driver::orderBy('name','ASC')->get();
+        // $workmen = Workman::orderBy('name','ASC')->get();
         $workmenJson = json_encode($workmen);
         return view('admin.deliverytrip.create', [
             'title' => 'Add New Delivery Trip',
             'lorries' => $lorries,
             'drivers' => $drivers,
             'workmen' => $workmen,
-            'workmenJson' => $workmenJson
+            'workmenDropdown' => $workmenDropdown
         ]);
     }
 
