@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,23 +21,101 @@
   </head>
 
   <body class="p-12 bg-gray-900 flex flex-col items-center min-h-screen">
-    <div class="w-64">
+    <div class="w-full">
       <select multiple x-data="multiselect">
         <optgroup label="Workman">
-          @foreach ($workmen as $workman)
-              
-          <option value="{{ $workman->slug }}">{{ $workman->name }}</option>
-          @endforeach
-        </optgroup>
+                        
+          <option value="john-doe">John Doe</option>
+                        
+          <option value="FDOeE">Yeow Rin Kor</option>
+                        
+          <option value="MALF3">Norhidayah Salam binti Diah</option>
+                        
+          <option value="vTM7m">Sittampalam a/l Tanasekharan</option>
+                        
+          <option value="2javJ">En Thung Chun</option>
+                        
+          <option value="W5uyr">Tam Low Zhao</option>
+                        
+          <option value="L3bgJ">Lu Shik Fun</option>
+                        
+          <option value="Extc5">Ko Cer Niau</option>
+                        
+          <option value="gSS1b">Maya Cha Kin Cen</option>
+                        
+          <option value="O3OKW">Sumayyah binti Nik Farisan Iman</option>
+                        
+          <option value="PNNPy">Kamaruzzaman bin Fareez</option>
+                        
+          <option value="QwVmK">Zabrina a/l Jomo Kwame Lakshmi</option>
+                        
+          <option value="EXeEd">Nuur Ridiatul binti Syed Ihsan Yussof</option>
+                        
+          <option value="wNjTS">Zabrina Manicka</option>
+                        
+          <option value="jOD1F">Kavita Bhullar a/l Satwant</option>
+                        
+          <option value="IDVv0">Zheng Sue Rong</option>
+                        
+          <option value="Va0k2">Hjh Darwisyah Faris binti Wan Lufty Ajmal</option>
+                        
+          <option value="yIrRk">Hajjah Nurfarrah Farhan binti Azhan</option>
+                        
+          <option value="aVU9D">Mohammad Hj Azizulhasni Roslee bin Syed Norazmi</option>
+                        
+          <option value="3jpi2">Thamboosamy Rajan</option>
+                        
+          <option value="sXih9">Zabrina a/l Palanivel</option>
+                        
+          <option value="s32Mt">Hui Liu Choi</option>
+                        
+          <option value="Dye85">Lye Zeah Liet</option>
+                        
+          <option value="w1UA9">Muhammet Zufayri bin Ihsan Shukri</option>
+                        
+          <option value="vUYkL">P&#039;ng Phong Kek</option>
+                        
+          <option value="ewfgo">Nurfatehah binti Azib Daud</option>
+                        
+          <option value="deqpZ">Sangeeta a/l Jeevandran Selvanayagam</option>
+                        
+          <option value="6QUFP">Gong Kuong Win</option>
+                        
+          <option value="sktMm">Muhamed Ishak Baharruddin bin Noorhakim</option>
+                  </optgroup>
         <optgroup label="Driver">
-          @foreach ($drivers as $driver)
-              
-          <option value="{{ $driver->slug }}">{{ $driver->name }}</option>
-          @endforeach
-        </optgroup>
+                        
+          <option value="jane-doe">Jane Doe</option>
+                        
+          <option value="kambing">Kambing</option>
+                        
+          <option value="hanif">Hanif</option>
+                        
+          <option value="hassan">Hassan</option>
+                        
+          <option value="pUSKm">Nur Hjh Cempaka Kasim</option>
+                        
+          <option value="jFeRu">Haran a/l Chanturu</option>
+                        
+          <option value="v6T09">Thanuja Perera a/l Vijandren Jayaram</option>
+                        
+          <option value="3EyWD">Izzaty binti Nik Ashrul Kamaruddin</option>
+                        
+          <option value="L9re4">Hao Wi Tin</option>
+                        
+          <option value="8is80">Sannatasah Asirvatham a/l Maha Thiru</option>
+                        
+          <option value="eKgB0">Ewe Pong Zao</option>
+                        
+          <option value="YJY1B">R.  Chandran</option>
+                        
+          <option value="dLvmh">Thew Sum Joy</option>
+                        
+          <option value="AVrBC">Mohamed Kamaruzaman bin Iqwan Safee</option>
+                  </optgroup>
       </select>
     </div>
-    <span class="text-neutral-400">select</span><span class="py-1.5 px-3 rounded-full bg-neutral-100">John ..</span><span class="py-1.5 px-3 rounded-full bg-neutral-100">Yeow ..</span><span class="py-1.5 px-3 rounded-full bg-neutral-100">Norhi..</span><span class="py-1.5 px-3 rounded-full bg-neutral-100">Sitta..</span>
+    
     <script>
       document.addEventListener("alpine:init", () => {
   Alpine.data("multiselect", () => ({
@@ -78,8 +157,9 @@
       const newSelect = document.createElement("div");
       newSelect.className = style.select;
       newSelect.setAttribute("x-bind", "selectTrigger");
+      newSelect.id = 'appendHere';
 
-      const textList = document.createElement("div");
+      const textList = document.createElement("span");
       textList.className = style.textList;
 
       const triggerBtn = document.createElement("button");
@@ -186,6 +266,7 @@
           this.items.forEach((item) => {
             const checkbox = item.querySelector("input[type=checkbox]");
             const text = item.querySelector("label").innerText;
+            
             if (checkbox.checked) {
               this.selectedItems.push(text);
             }
@@ -200,15 +281,20 @@
           if (this.selectedItems.length === 0) {
             textList.innerHTML = '<span class="text-neutral-400">select</span>';
           } else {
-            // textList.innerText = this.selectedItems.join(", ");
-            let selectedWM = this.selectedItems.map(function(item){
-              return '<span class="py-1.5 px-3 rounded-full bg-neutral-100">' + item.substr(0,5)+'..' + '</span>'
+            textList.innerHTML = '';
+            
+            textList.appendChild(newSpan);
+            this.selectedItems.map(function(item){
+                const newSpan = document.createElement("span");
+                newSpan.className = style.badge;
+                newSpan.style = 'display:inline-block';
+                newSpan.innerText = item;
             });
-            let xfull = textList.innertext + selectedWM.join('');
-            console.log(xfull);
+            // textList.innerText = this.selectedItems.join(", ");
+            // textList.appendChild(toNodeList);
           }
         },
-
+        // document.querySelector('#output').innerHTML = 'Hi <span>' + name + '</span>'; 
         selectTrigger: {
           ["@click"]() {
             this.open = !this.open;

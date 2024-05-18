@@ -49,7 +49,21 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'admin.
     });
 });
 route::get('/multidropdown',function(){
-    return view('multidropdown');
+    $workmen = App\Models\Workman::select('name','slug')->orderBy('id','desc')->get(); 
+    $drivers = App\Models\Driver::select('name','slug')->orderBy('id','desc')->get(); 
+    return view('multidropdown', [
+        'workmen' => $workmen,
+        'drivers' => $drivers,
+    ]);
+});
+route::get('/multidropdown2',function(){
+    $workmenDropdown = App\Models\Workman::select('name','slug')->orderBy('id','desc')->get(); 
+    return view('multidropdown2', [
+        'workmenDropdown' => $workmenDropdown,
+    ]);
+});
+route::get('/multidropdown3',function(){
+    return view('multidropdown3');
 });
 
 route::get('/workmendropdown', [WorkmanResourceController::class, 'workmenDropdown']);

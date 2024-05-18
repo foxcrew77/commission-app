@@ -100,7 +100,7 @@ class WorkmanResourceController extends Controller
     public function workmenDropdown()
     {
         // $workmen = Workman::orderBy('id', 'DESC')->get();
-        $workmen = Workman::select('name as label','id as value')->orderBy('id','desc')->get(); 
+        $workmen = Workman::select('name','slug')->orderBy('id','desc')->get(); 
     
         return $workmen;
         // return [
