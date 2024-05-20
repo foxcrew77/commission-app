@@ -101,39 +101,41 @@
               {{-- multidropdown for workmen --}}
 
               {{-- multdropdown for workmen --}}
-              <div class="custome-select open">
-                <div class="select-box">
-                    <input type="text" class="tags_input" name="tags" hidden>
-                    <div class="selected-options">
-                        <span class="tag">Black<span class="remove-tag">&times;</span></span>
-                        <span class="tag">White<span class="remove-tag">&times;</span></span>
-                        <span class="tag">Green<span class="remove-tag">&times;</span></span>
-                        <span class="tag">Orange<span class="remove-tag">&times;</span></span>
+              <div class="multiselectcontainer flex items-start gap-20">
+                <div class="custom-select relative w-full">
+                    <div class="select-box bg-white border bg-neutral-100 flex justify-between items-center px-10">
+                        <input type="text" class="tags_input" name="tags" hidden>
+                        <div class="selected-options flex flex-wrap mt-0">
+                            <span class="tag bg-gray-400 text-black rounded mr-2 py-2 px-4 flex items-center">Black<span class="remove-tag ml-4 cursor-pointer">&times;</span></span>
+                            <span class="tag bg-gray-400 text-black rounded mr-2 py-2 px-4 flex items-center">White<span class="remove-tag ml-4 cursor-pointer">&times;</span></span>
+                            <span class="tag bg-gray-400 text-black rounded mr-2 py-2 px-4 flex items-center">Green<span class="remove-tag ml-4 cursor-pointer">&times;</span></span>
+                            <span class="tag bg-gray-400 text-black rounded mr-2 py-2 px-4 flex items-center">Orange<span class="remove-tag ml-4 cursor-pointer">&times;</span></span>
+                        </div>
+                        <div class="arrow mx-10">
+                            <i data-feather="chevron-down" class="text-gray-200 text-sm"></i>  
+                        </div>
                     </div>
-                    <div class="arrow">
-                        <i data-feather="chevron-down" class=""></i>  
+                    <div class="options">
+                        <div class="option-search-tags">
+                            <input type="text" class="search-tags"
+                            placeholder="search tags"/>
+                            <button type="button" class="clear"><i data-feather="x-square" class=""></i></button>
+                        </div>
+                        <div class="option all-tags"
+                        data-value="All">Select All</div>
+                        <div class="option active" data-value="Black">Black</div>
+                        <div class="option active" data-value="White">White</div>
+                        <div class="option active" data-value="Green">Green</div>
+                        <div class="option active" data-value="Orange">Orange</div>
+                        <div class="option" data-value="Yellow">Yellow</div>
+                        <div class="option" data-value="Red">Red</div>
+                        <div class="option" data-value="Purple">Purple</div>
+                        <div class="option" data-value="">No result match</div>
                     </div>
-                </div>
-                <div class="options">
-                    <div class="option-search-tags">
-                        <input type="text" class="search-tags"
-                        placeholder="search tags"/>
-                        <button type="button" class="clear"><i data-feather="x-square" class=""></i></button>
-                    </div>
-                    <div class="option all-tags"
-                    data-value="All">Select All</div>
-                    <div class="option active" data-value="Black">Black</div>
-                    <div class="option active" data-value="White">White</div>
-                    <div class="option active" data-value="Green">Green</div>
-                    <div class="option active" data-value="Orange">Orange</div>
-                    <div class="option" data-value="Yellow">Yellow</div>
-                    <div class="option" data-value="Red">Red</div>
-                    <div class="option" data-value="Purple">Purple</div>
-                    <div class="option" data-value="">No result match</div>
-                </div>
-                <span class="tag_error_msg error">This field is required</span>
+                    <span class="tag_error_msg error">This field is required</span>
+                  </div>
+                  <input type="button" class="btn_submit" value="submit" />
               </div>
-              <input type="button" class="btn_submit" value="submit" />
               {{-- https://www.youtube.com/watch?v=MyJx3Fj1tWc --}}
               {{-- multdropdown for workmen --}}
             </div>
