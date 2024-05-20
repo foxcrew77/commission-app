@@ -56,6 +56,14 @@ route::get('/multidropdown',function(){
         'drivers' => $drivers,
     ]);
 });
+route::get('/multidropdown4',function(){
+    $workmen = App\Models\Workman::select('name','slug')->orderBy('id','desc')->get(); 
+    $drivers = App\Models\Driver::select('name','slug')->orderBy('id','desc')->get(); 
+    return view('multidropdown4', [
+        'workmen' => $workmen,
+        'drivers' => $drivers,
+    ]);
+});
 route::get('/multidropdown2',function(){
     $workmenDropdown = App\Models\Workman::select('name','slug')->orderBy('id','desc')->get(); 
     return view('multidropdown2', [
