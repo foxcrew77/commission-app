@@ -1,11 +1,33 @@
 @extends('layouts.admin')
 @section('content')
+<style>
+.optionWM.active {
+    font-weight: 600;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #eaeaea;
+}
+.tag:hover, .optionWM:hover {
+    background-color: #eaeaea;
+}
+.error {
+    color: #ff1a2a;
+    margin-top: 8px;
+}
+.option-search-tags.input:focus {
+    outline: none;
+} 
+/* .open .options {
+    display: block;
+} */
+</style>
           <div class="container px-6 mx-auto grid">
             @component('components.tables.create-title',['item' => 'Delivery Trip'])
             @endcomponent
             <div
               class="px-4 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800"
             >
+            <form action="{{ route('admin.deliverytrip.store') }}" method="post">
+                @csrf
               <label class="block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Trip Date</span>
                 <input
@@ -101,50 +123,62 @@
               {{-- multidropdown for workmen --}}
 
               {{-- multdropdown for workmen --}}
-              <div class="multiselectcontainer flex items-start gap-20">
+              <label class="block mt-4 text-sm">
+                <span class="text-gray-700 dark:text-gray-400">
+                    Workman
+                  </span>
+              <div class="multiselectcontainer flex items-start gap-20" name="workmen[]">
                 <div class="custom-select relative w-full">
-                    <div class="select-box bg-white border bg-neutral-100 flex justify-between items-center px-10">
-                        <input type="text" class="tags_input" name="tags" hidden>
-                        <div class="selected-options flex flex-wrap mt-0">
-                            <span class="tag bg-gray-400 text-black rounded mr-2 py-2 px-4 flex items-center">Black<span class="remove-tag ml-4 cursor-pointer">&times;</span></span>
-                            <span class="tag bg-gray-400 text-black rounded mr-2 py-2 px-4 flex items-center">White<span class="remove-tag ml-4 cursor-pointer">&times;</span></span>
-                            <span class="tag bg-gray-400 text-black rounded mr-2 py-2 px-4 flex items-center">Green<span class="remove-tag ml-4 cursor-pointer">&times;</span></span>
-                            <span class="tag bg-gray-400 text-black rounded mr-2 py-2 px-4 flex items-center">Orange<span class="remove-tag ml-4 cursor-pointer">&times;</span></span>
+                    <div class="select-box bg-white border rounded bg-neutral-100 flex flex-row justify-between items-center px-10
+                    
+                    ">
+                        <input type="text" class="tags_input" name="search" hidden>
+                        <div class="flex flex-wrap mt-2 mb-2"> {{-- selected-options  --}}
+                            <button onclick="myFunction()" id="tag" class="tag bg-gray-100 text-black rounded border border-black mr-2 py-1 px-2 flex items-center">Black<button class="ml-4 cursor-pointer">&times;</button></button>
+                            <span class="tag bg-gray-100 text-black rounded border border-black mr-2 py-1 px-2 flex items-center">White<button class="ml-4 cursor-pointer">&times;</button></span>
+                            <span class="tag bg-gray-100 text-black rounded border border-black mr-2 py-1 px-2 flex items-center">Green<button class="ml-4 cursor-pointer">&times;</button></span>
+                            <span class="tag bg-gray-100 text-black rounded border border-black mr-2 py-1 px-2 flex items-center">Orange<button class="ml-4 cursor-pointer">&times;</button></span>
                         </div>
                         <div class="arrow mx-10">
-                            <i data-feather="chevron-down" class="text-gray-200 text-sm"></i>  
+                            <i data-feather="chevron-down" style="stroke: gray; stroke-width:2; width:16px;height:16px" ></i>  
                         </div>
                     </div>
-                    <div class="options">
-                        <div class="option-search-tags">
-                            <input type="text" class="search-tags"
-                            placeholder="search tags"/>
-                            <button type="button" class="clear"><i data-feather="x-square" class=""></i></button>
+                    <div id="open" class="open absolute w-full bg-white border-black max-h-56 z-10 shadow-md " style="max-height:170px; overflow-y: auto; z-index:1">
+                        <div class="option-search-tags bg-white border border-gray-400 mt-2 py-2">
+                            <input type="text" class="search-tags w-full border-0 px-2 text-sm
+                            focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray
+                            "
+                            placeholder="Search workman..."/>
+                            <button type="button" class="clear absolute border-0 bg-transparent px-0 py-0" style="left:auto;right:10px"><i data-feather="x-square" style="stroke: black; stroke-width:1; width:24px;height:24px" ></i></button>
                         </div>
-                        <div class="option all-tags"
-                        data-value="All">Select All</div>
-                        <div class="option active" data-value="Black">Black</div>
-                        <div class="option active" data-value="White">White</div>
-                        <div class="option active" data-value="Green">Green</div>
-                        <div class="option active" data-value="Orange">Orange</div>
-                        <div class="option" data-value="Yellow">Yellow</div>
-                        <div class="option" data-value="Red">Red</div>
-                        <div class="option" data-value="Purple">Purple</div>
-                        <div class="option" data-value="">No result match</div>
+                        <div style="cursor: default;" class="px-4 optionWM active:text-black active:bg-gray-400 active" data-value="Black">Black</div>
+                        <div style="cursor: default;" class="px-4 optionWM active:text-black active:bg-gray-400 active" data-value="White">White</div>
+                        <div style="cursor: default;" class="px-4 optionWM active:text-black active:bg-gray-400 active" data-value="Green">Green</div>
+                        <div style="cursor: default;" class="px-4 optionWM active:text-black active:bg-gray-400 active" data-value="Orange">Orange</div>
+                        <div style="cursor: default;" class="px-4 optionWM active:text-black active:bg-gray-400" data-value="Yellow">Yellow</div>
+                        <div style="cursor: default;" class="px-4 optionWM active:text-black active:bg-gray-400" data-value="Red">Red</div>
+                        <div style="cursor: default;" class="px-4 optionWM active:text-black active:bg-gray-400" data-value="Purple">Purple</div>
+                        <div style="cursor: default; display:none;" class="px-4 py-4 optionWM" data-value="">No result match</div>
                     </div>
-                    <span class="tag_error_msg error">This field is required</span>
+                    <span class="tag_error_msg error hidden">This field is required</span>
                   </div>
-                  <input type="button" class="btn_submit" value="submit" />
+                </label>
+                  {{-- <input type="button" class="btn_submit" value="submit" /> --}}
               </div>
               {{-- https://www.youtube.com/watch?v=MyJx3Fj1tWc --}}
               {{-- multdropdown for workmen --}}
             </div>
             @component('components.navigation.save-cancel-button',['IndexRoute' => 'admin.lorry.index'])
+        </form>
             @endcomponent
           </div>
           
-          {{-- <script defer>
-
+          <script defer>
+            //testing change class name
+            function myFunction() {
+                var element = document.getElementById("open");
+                element.classList.add("hidden");
+            }
             // ESC keystroke to clear search
             document.onkeydown = function(e){
             e = e || window.event;
@@ -163,7 +197,7 @@
                 clear();
              }
             }
-        </script> --}}
+        </script>
 @endsection
 
 
