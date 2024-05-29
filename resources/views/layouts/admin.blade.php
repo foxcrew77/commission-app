@@ -32,6 +32,9 @@
     
 
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+
+    {{-- multiselect --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/css/multi-select-tag.css">
     <style>
         .material-symbols-outlined {
           font-variation-settings:
@@ -67,20 +70,20 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script>feather.replace();</script>
+{{-- multiselect --}}
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
 <script src="{{ asset("assets/js/alpine.min.js") }}" defer></script>
-{{-- <script src="{{ asset("assets/js/multiselect.js") }}" defer></script> --}}
 <script src="{{ asset("assets/js/Chart.min.js") }}" defer></script>
 <script src="{{ asset("assets/js/init-alpine.js") }}"></script>
 <script src="{{ asset("assets/js/charts-lines.js") }}" defer></script>
 <script src="{{ asset("assets/js/charts-pie.js") }}" defer></script>
 <script>
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-    const newColorScheme = event.matches ? "dark" : "light";
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    alert('gelap');
-}
+//     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+//     const newColorScheme = event.matches ? "dark" : "light";
+//     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+// }
     
-});
+// });
 
 </script>
 </body>
