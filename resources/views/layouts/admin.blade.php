@@ -34,7 +34,8 @@
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
 
     {{-- multiselect --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/css/multi-select-tag.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/css/multi-select-tag.css"> --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/multiselect.css') }}">
     <style>
         .material-symbols-outlined {
           font-variation-settings:
@@ -71,7 +72,8 @@
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script>feather.replace();</script>
 {{-- multiselect --}}
-<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+{{-- <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script> --}}
+
 <script src="{{ asset("assets/js/alpine.min.js") }}" defer></script>
 <script src="{{ asset("assets/js/Chart.min.js") }}" defer></script>
 <script src="{{ asset("assets/js/init-alpine.js") }}"></script>

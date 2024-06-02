@@ -107,55 +107,35 @@
                 @endforeach
                 </select>
               </label>
-              {{-- multidropdown for workmen --}}
-              {{-- <label class="block mt-4 text-sm">
-                <span class="text-gray-700 dark:text-gray-400">
-                  Workman
-                </span>
-                <select
-                  class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-                  name="workman[]"
-                  required
-                >
-                <option value="" selected disabled>Please select workman</option>
-                <optgroup label="Workman">
-                @foreach ($workmen as $workman)
-                    
-                <option value="{{ $workman->name }}">{{ $workman->name }}
-                  {{ old('driver') == $workman->name ? 'checked' : ''  }}
-                </option>
-                @endforeach
-                </optgroup>
-                <optgroup label="Driver">
-                    @foreach ($drivers as $driver)
-                        
-                    <option value="{{ $driver->name }}">{{ $driver->name }}
-                      {{ old('driver') == $driver->name ? 'checked' : ''  }}
-                    </option>
-                    @endforeach
-                    </optgroup>
-                </select>
-              </label> --}}
-              {{-- multidropdown for workmen --}}
-
               {{-- multdropdown for workmen --}}
               <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">
                     Workman
                   </span>
                   {{-- start here --}}
-                  <select name="countries" id="countries" multiple>
-                    <option value="1">Afghanistan</option>
-                    <option value="2">Australia</option>
-                    <option value="3">Germany</option>
-                    <option value="4">Canada</option>
-                    <option value="5">Russia</option>
+                  <div id="body">
+                  <select name="workmen[]" id="workman" multiple>
+                    @foreach ($workmen as $workman)
+                        
+                    <option value="{{ $workman->name }}" data-position="workman">{{ $workman->name }}</option>
+                    @endforeach
+                    <option value="driver">Driver</option>
+                      @foreach ($drivers as $driver)
+                        
+                      <option value="{{ $driver->name }}" data-position="driver">{{ $driver->name }}</option>
+                      @endforeach
                 </select>
+              </div>
               </label>
-              <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+            </div>
+              @component('components.navigation.save-cancel-button',['IndexRoute' => 'admin.deliverytrip.index'])
+              @endcomponent
+          </form>
+              {{-- <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script> --}}
+              <script src="{{ asset("assets/js/multi-select-tag.js") }}" ></script>
               <script>
                 // new MultiSelectTag('countries')  // id
-                new MultiSelectTag('countries', {
+                new MultiSelectTag('workman', {
     rounded: true,    // default true
     shadow: true,      // default false
     placeholder: 'Search',  // default Search...
