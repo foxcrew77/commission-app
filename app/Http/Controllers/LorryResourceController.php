@@ -6,19 +6,51 @@ use App\Models\Lorry;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+
 class LorryResourceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $lorries = Lorry::orderBy('id', 'DESC')->paginate(10);
-        
+        $status = $request->query('status');
+        $filterBy = $request->query('filterBy');
+        $filter = $request->query('filter');
+        if(!empty($request->query())){
+            if(empty($request->query('filterBy'))){
+                $filterBy = 'plate_no';
+            }
+            $lorries = Lorry::sortable()
+            ->where($filterBy , 'like', '%'.$filter.'%')
+            ->where('status', 'like', $status.'%')
+            ->paginate(10);
+        } elseif(empty($request->query())) {
+            $lorries = Lorry::sortable()
+            ->paginate(10);
+        }
         return view('admin.lorry.index', [
             'lorries' => $lorries,
         ]);
     }
+
+    // public function indexFiltering(Request $request)
+    // {
+    //     $filter = $request->query('filter');
+
+    //     if(!empty($filter)){
+    //         $lorries = Lorry::sortable()
+    //         ->where('lorries.plate_no', 'like', '&'.$filter.'&')
+    //         ->paginate(10);
+    //     } else {
+    //         $lorries = Lorry::sortable()
+    //         ->paginate(10);
+    //     }
+
+    //     return view('admin.lorry.index', [
+    //         'lorries' => $lorries,
+    //     ])->with('filter', $filter);
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -79,7 +111,10 @@ class LorryResourceController extends Controller
      */
     public function edit(Lorry $lorry)
     {
-        //
+        return view('admin.lorry.edit', [
+            'lorry' =>  $lorry,
+            // 'created_by' => $created_by,
+        ]);
     }
 
     /**
@@ -87,7 +122,27 @@ class LorryResourceController extends Controller
      */
     public function update(Request $request, Lorry $lorry)
     {
-        //
+        // Request contain new data 
+        // $Lorry contain old data (passed)
+        $rules = [
+            'plate_no' => 'required|max:255',
+            'capacity' => 'required',
+            'outlet' => 'required|max:255',
+            'status' => 'required'
+        ];
+
+        if($request->slug != $lorry->slug){
+            $rules['slug'] = 'required|unique:lorries|max:255';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        $validatedData['user_id'] = auth()->user()->id; //take current  user as user_id
+
+        Lorry::where('id', $lorry->id)
+        ->update($validatedData);
+        
+        return redirect(route('admin.lorry.index'))->with('success','Lorry has been updated.');
     }
 
     /**
@@ -95,6 +150,14 @@ class LorryResourceController extends Controller
      */
     public function destroy(Lorry $lorry)
     {
-        //
+        Lorry::destroy($lorry->id);
+        return redirect(route('admin.lorry.index'))->with('success', 'Lorry has been deleted.');
     }
 }
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `commissionMonthly` (IN `namaStaff` VARCHAR(50) COLLATE utf8_unicode_ci, IN `yearMonth` VARCHAR(50) COLLATE utf8_unicode_ci)   BEGIN
+
+select sum(total_commission) as total_monthly_commission
+from
+(
+(select driver,date, sum(commission) as total_commission
+from
+(
+select date, (case when ( sum(berat) > muatan and muatan > 2200 ) then ((sum(berat)-muatan)*0.008)*0.4
+                   when ( sum(berat) > muatan and muatan < 2500 ) then ((sum(berat)-muatan)*0.008)*0.5
+                   when ( sum(berat) < muatan) then 0
+    end) as commission, muatan, driver, workman from
+(
+select 
+date, berat, lori,muatan, driver, workman
+    from commission
+    inner join staff on commission.workman like concat('%',staff.id,'%') or commission.driver = staff.id 
+    inner join lori on commission.lori = lori.loriID
+ 
+ where 
+    date like concat('%',yearMonth,'%') and
+    driver like concat('%',namaStaff,'%')
+    group by commID
+     
+
+
+
+
+   
+) as daily_comm
+group by muatan, date
+
+) as total_daily_commission
+group by driver)
+
+union
+
+(select workman,date, sum(commission) as total_commission
+from
+(
+select date, (case when ( sum(berat) > muatan and muatan > 2200 ) then ((sum(berat)-muatan)*0.008)*0.3
+                   when ( sum(berat) > muatan and muatan < 2500 ) then ((sum(berat)-muatan)*0.008)*0.5
+                   when ( sum(berat) < muatan) then 0
+    end) as commission, muatan, driver, workman from
+(
+select 
+date, berat, lori,muatan, driver, workman
+    from commission
+    inner join staff on commission.workman like concat('%',staff.id,'%') or commission.driver = staff.id 
+    inner join lori on commission.lori = lori.loriID
+ 
+ where 
+    date like concat('%',yearMonth,'%') and
+    workman like concat('%',namaStaff,'%')
+    group by commID
+
+
+
+
+   
+) as daily_comm
+group by muatan, date
+
+) as total_daily_commission) 
+) as total;
+END$$

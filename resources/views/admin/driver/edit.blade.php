@@ -1,10 +1,11 @@
 @extends('layouts.admin')
 @section('content')
           <div class="container px-6 mx-auto grid">
-            @component('components.tables.create-title',['item' => 'Add New Workman'])
+            @component('components.tables.create-title',['item' => 'Add New Driver'])
             @endcomponent
-            <form action="{{ route('admin.workman.store') }}" method="post">
+            <form action="{{ route('admin.driver.update',['driver' => $driver->slug]) }}" method="post">
               @csrf
+              @method('put')
               <div
               class="px-4 py-2 bg-white rounded-lg shadow-md dark:bg-gray-800"
             >
@@ -15,14 +16,15 @@
                   class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                   placeholder="Jane Doe"
                   name="name"
-                  {{ old('name') }}
+                  value="{{ old('name', $driver->name) }}"
                   required
                   autofocus
                 />
               </label>
-              <input type="text" id="slug" name="slug" hidden>
-              <input type="text" id="asWorkman_id" name="asWorkman_id" value=0 hidden>
-              <input type="text" id="position" name="position" value="workman" hidden>
+              <input hidden
+              value="{{ old('slug', $driver->slug) }}"
+              type="text" id="slug" name="slug">
+              <input type="text" id="position" name="position" value="driver" hidden>
               <div class="mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">
                   Outlet
@@ -36,7 +38,7 @@
                       class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                       name="outlet"
                       value="KKIP"
-                      {{ old('outlet') == 'KKIP' ? 'checked' : ''  }}
+                      {{ $driver->outlet == 'KKIP' ? 'checked' : ''}}
                       required
                     />
                     <span class="ml-2">KKIP</span>
@@ -49,8 +51,7 @@
                       class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                       name="outlet"
                       value="KK2"
-                      {{ old('outlet') == 'KK2' ? 'checked' : ''  }}
-                      
+                      {{ $driver->outlet == 'KK2' ? 'checked' : ''}}
                     />
                     <span class="ml-2">KK2</span>
                   </label>
@@ -62,13 +63,13 @@
                       class="text-purple-600 form-radio focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                       name="outlet"
                       value="JB"
-                      {{ old('outlet') == 'JB' ? 'checked' : ''  }}
+                      {{ $driver->outlet == 'JB' ? 'checked' : ''}}
                     />
                     <span class="ml-2">JB</span>
                   </label>
                 </div>
               </div>
-              <label class="block mt-4 text-sm hidden">
+              <label class="block mt-4 text-sm">
                 <span class="text-gray-700 dark:text-gray-400">
                   Status
                 </span>
@@ -76,12 +77,16 @@
                   class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                   name="status"
                 >
-                  <option selected value="ACTIVE">ACTIVE</option>
-                  <option value="INACTIVE">INACTIVE</option>
+                  <option
+                  {{ $driver->status == 'ACTIVE' ? 'selected' : ''}} 
+                  value="ACTIVE">ACTIVE</option>
+                  <option 
+                  {{ $driver->status == 'INACTIVE' ? 'selected' : ''}}
+                  value="INACTIVE">INACTIVE</option>
                 </select>
               </label>
             </div>
-            @component('components.navigation.save-cancel-button',['IndexRoute' => 'admin.workman.index'])
+            @component('components.navigation.save-cancel-button',['IndexRoute' => 'admin.driver.index'])
             @endcomponent
           </div>
         </form>
@@ -91,7 +96,7 @@
             
             name.addEventListener("keyup", function() {
                     let preslug = name.value;
-                    preslug = preslug.replace(/ /g,"-");
+                    preslug = preslug.replace(/ /g,"");
                     slug.value = preslug.toLowerCase();
                 });
 

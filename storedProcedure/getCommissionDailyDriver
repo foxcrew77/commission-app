@@ -1,0 +1,57 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getCommissionDailyDriver` (IN `namaStaff` VARCHAR(50) COLLATE utf8_unicode_ci, IN `yearMonth` VARCHAR(50) COLLATE utf8_unicode_ci)   BEGIN
+DECLARE muatanList int;
+DECLARE finished int default 0;
+DECLARE columnName char(50);
+DECLARE curMuatan 
+    CURSOR FOR 
+        select distinct(muatan) from lori order by muatan asc;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = 1;
+SET @sql = '';
+OPEN curMuatan;
+
+getDailyMuatan: LOOP
+
+    FETCH curMuatan INTO muatanList;
+    
+    IF finished = 1 THEN LEAVE getDailyMuatan;
+    END IF;
+    SET columnName := CONVERT(muatanList,CHAR);
+     IF @sql = '' THEN
+        SET @sql := CONCAT("select driver,date, max(case when muatan = ",muatanList," then commission else 0 end) as '",muatanList,"'");
+    ELSE 
+        SET @sql := CONCAT(@sql,",max(case when muatan = ",muatanList," then commission else 0 end) as '",muatanList,"'");
+    END IF;
+END LOOP getDailyMuatan;
+        SET @sql := CONCAT(@sql," from
+(
+select date, (case when ( sum(berat) > muatan and muatan > 2200 ) then ((sum(berat)-muatan)*0.008)*0.4
+                   when ( sum(berat) > muatan and muatan < 2500 ) then ((sum(berat)-muatan)*0.008)*0.5
+                   when ( sum(berat) < muatan) then 0
+    end) as commission, muatan, driver, workman from
+(
+select 
+date, berat, lori,muatan, driver, workman
+    from commission
+    inner join staff on commission.workman like concat('%',staff.id,'%') or commission.driver = staff.id 
+    inner join lori on commission.lori = lori.loriID
+ 
+ where 
+    date like '%",yearMonth,"%' and
+    driver like '%",namaStaff,"%'
+    group by commID
+   
+) as daily_comm
+
+group by muatan, date
+order by date, muatan
+) as total_daily_berat
+group by date
+order by date, muatan");
+CLOSE curMuatan; 
+
+  PREPARE stmt FROM @sql;  
+  EXECUTE stmt;   
+
+ 
+END$$

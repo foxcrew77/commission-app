@@ -4,7 +4,7 @@
             class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
             <th class="px-4">No.</th>
             <th class="px-4">Date</th>
-            <th class="px-4">Total Weight (KG)</th>
+            <th class="px-4">Total Weight</th>
             <th class="px-4">Lorry</th>
             <th class="px-4">Driver</th>
             <th class="px-4">Workmen</th>
@@ -14,7 +14,10 @@
     </thead>
     <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
         @foreach ($delivery_trip as $trip)
-        <tr class="text-gray-700 dark:text-gray-400">
+        {{-- <tr class="text-gray-700 dark:text-gray-400"> --}}
+        <tr 
+            data-href="{{ route('admin.deliverytrip.show',['deliverytrip' => $trip->slug]) }}"
+            class="cursor-pointer hover:bg-gray-100 text-gray-700 dark:text-gray-400">
             <td class="px-4 text-sm">{{ $delivery_trip->firstItem() + $loop->index}}</td>
             <td class="flex flex-row gap-px px-4 py-3 text-sm">
                     <div class="mr-2 flex items-center">
@@ -29,14 +32,19 @@
 
             </td>
             <td class="px-4 text-sm">
-                {{ $trip->total_weight }}
+                {{ $trip->total_weight }} KG
             </td>
             <td class="flex flex-col px-4 text-sm">
-                <span class="mt-2">{{ $trip->lorries()->get()[0]->plate_no}}</span>
-                <span class="text-gray-500 text-xs">{{ $trip->lorries()->get()[0]->capacity}} KG</span>
+                @foreach ($trip->lorries()->get() as $lorry)
+                    <span class="mt-2">{{ $lorry->plate_no}}</span>
+                    <span class="text-gray-500 text-xs">{{ $lorry->capacity}} KG</span>
+                @endforeach
             </td>
             <td class="px-4 text-sm">
-                {{ $trip->drivers()->get()[0]->name }}
+                @foreach ($trip->drivers()->get() as $driver)
+                    {{ $driver->name }}
+                @endforeach
+                
             </td>
             <td class="px-4 py-3 text-sm">
                 @foreach ($trip->workmen()->get() as $workman)
@@ -47,7 +55,9 @@
                 
             </td>
             <td class="px-4 text-sm">
-                {{ $trip->lorries()->get()[0]->outlet}}
+                    @foreach ($trip->lorries()->get() as $lorry)
+                    {{ $lorry->outlet }}</span>
+                @endforeach
             </td>
             <td class="px-4">
                 <div class="flex items-center space-x-4 text-sm">

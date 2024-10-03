@@ -1,0 +1,4 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `commissionDaily` (IN `namaStaff` VARCHAR(50) COLLATE utf8_unicode_ci, IN `yearMonth` VARCHAR(50) COLLATE utf8_unicode_ci)   BEGIN
+call getCommissionDailyDriver(namaStaff,yearMonth);
+call getCommissionDailyWorkman(namaStaff,yearMonth);
+END$$

@@ -1,0 +1,70 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `beratDaily` (IN `namaStaff` VARCHAR(50) COLLATE utf8_unicode_ci, IN `yearMonth` VARCHAR(50) COLLATE utf8_unicode_ci)   BEGIN
+DECLARE finished int default 0;
+call getTotalBeratDailyDriver(namaStaff,yearMonth);
+call getTotalBeratDailyWorkman(namaStaff,yearMonth);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `beratMonthly` (IN `namaStaff` VARCHAR(50) COLLATE utf8_unicode_ci, IN `yearMonth` VARCHAR(50) COLLATE utf8_unicode_ci)   BEGIN
+select sum(berat_monthly) as total_berat_monthly from
+(
+(select driver,date, sum(total_berat) as berat_monthly
+
+from
+(
+select date, sum(berat) as total_berat, muatan, driver, workman from
+(
+select 
+date, berat, lori,muatan, driver, workman
+    from commission
+    inner join staff on commission.workman like concat('%',staff.id,'%') or commission.driver = staff.id 
+    inner join lori on commission.lori = lori.loriID
+ 
+ where 
+    date like concat('%',yearMonth,'%') and
+    driver like concat('%',namaStaff,'%')
+    group by commID
+
+
+
+
+
+) as daily_comm
+
+group by muatan, date
+
+) as total_daily_berat
+group by driver
+)
+
+union 
+
+(select workman,date, sum(total_berat) as berat_monthly
+
+from
+(
+select date, sum(berat) as total_berat, muatan, driver, workman from
+(
+select 
+date, berat, lori,muatan, driver, workman
+    from commission
+    inner join staff on commission.workman like concat('%',staff.id,'%') or commission.driver = staff.id 
+    inner join lori on commission.lori = lori.loriID
+ 
+ where 
+    date like concat('%',yearMonth,'%') and
+    workman like concat('%',namaStaff,'%')
+    group by commID
+
+
+
+
+   
+) as daily_comm
+
+group by muatan
+
+) as total_daily_berat
+
+)
+) as total;
+END$$

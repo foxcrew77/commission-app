@@ -1,13 +1,18 @@
 @extends('layouts.admin')
 @section('content')
 <div class="container grid px-6 mx-auto mb-6">
-    
-    @component('components.tables.table-title', ['title' => 'Lorry'])
+    @component('components.tables.table-title', [
+        'title' => 'Lorry',
+        'resetRoute' => 'admin.lorry.index'
+        ])
     @endcomponent
     @component('components.tables.index-table-filter',[
-        'placeholder' => 'Search for lorry',
         'addNew' => 'Add New Lorry',
-        'createRoute' => 'admin.lorry.create'])
+        'createRoute' => 'admin.lorry.create',
+        'filterByCriteria' => ['Plate Number' => 'plate_no', 'Capacity' => 'capacity', 'Outlet' => 'outlet'],
+        'statusFilter' => ['All' => '%active%', 'Active' => 'active', 'Inactive' => 'inactive'],
+        'firstFilterBy' => 'plate_no'
+        ])
     @endcomponent
     {{ $lorries->links() }}
     <div class="w-full overflow-visible rounded-lg shadow-xs">

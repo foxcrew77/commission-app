@@ -2,25 +2,22 @@
     <form class="form-inline" method="GET">
     <div class="flex  sm:flex-row">
         <div class="flex flex-row mb-2 sm:mb-0">
+            {{-- {{ dd($lorryFilter) }} --}}
+            <div class="flex flex-row mb-2 sm:mb-0 ">
+                <input type="date"
+                class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                name="trip_date"
+                >
+            </div>
             <div class="relative">
                 <select
-                    id="statusFilter"
+                    id="lorryFilter"
                     class="w-full text-sm font-semibold text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                    name="status"
+                    name="lorry"
                     >
-                    @foreach ($statusFilter as $name => $value)
-                        <option 
-                        <?php
-                            if(!empty(request()->input('status'))){
-                                if($value == request()->input('status')){
-                                    echo 'selected';
-                                }
-                            } elseif($value == 'active') {
-                                    echo 'selected';
-                            }
-                        ?>
-                        <?= $value == request()->input('status')  ? 'selected' : ''  ?> 
-                        value="{{ $value }}">{{ $name }}</option>
+                    <option selected value="">Lorry</option>
+                    @foreach ($lorryFilter as $lorry)
+                        <option value="{{ $lorry->id }}">{{ $lorry->plate_no }}</option>
                     @endforeach
                 </select>
             </div>
@@ -28,13 +25,41 @@
         <div class="flex flex-row mb-2 sm:mb-0">
             <div class="relative">
                 <select
-                    id="filterBy" 
+                    id="driverFilter" 
                     class="w-full font-semibold text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
-                    name="filterBy"
+                    name="driver"
                     >
-                    @foreach ($filterByCriteria as $name => $value)
-                        <option <?= $value == request()->input('filterBy')  ? 'selected' : ''  ?> value="{{ $value }}">{{ $name }}</option>
+                    <option selected value="">Driver</option>
+                    @foreach ($driverFilter as $driver)
+                        <option value="{{ $driver->id }}">{{ $driver->name }}</option>
                     @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="flex flex-row mb-2 sm:mb-0">
+            <div class="relative">
+                <select
+                    id="workmenFilter" 
+                    class="w-full font-semibold text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                    name="workmen"
+                    >
+                    <option selected value="">Workman</option>
+                    @foreach ($workmenFilter as $workman)
+                        <option value="{{ $workman->id }}">{{ $workman->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="flex flex-row mb-2 sm:mb-0">
+            <div class="relative">
+                <select
+                    id="outlet" 
+                    class="w-full font-semibold text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
+                    name="outlet"
+                    >
+                    <option selected value="">Outlet</option>
+                    <option value="KKIP">KKIP</option>
+                    <option value="KK2">KK2</option>
                 </select>
             </div>
         </div>
@@ -43,9 +68,9 @@
             id="searchBar"
             class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
             type="text"
-            placeholder="Filter by "
+            placeholder="Filter by weight "
             aria-label="Search" 
-            name="filter"
+            name="total_weight"
             value="{{ request()->input('filter') }}"
             />
         </div>

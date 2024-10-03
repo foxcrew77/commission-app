@@ -1,13 +1,19 @@
 @extends('layouts.admin')
 @section('content')
 <div class="container grid px-6 mx-auto mb-6">
-    @component('components.tables.table-title', ['title' => 'Driver'])
+    @component('components.tables.table-title', [
+        'title' => 'Driver',
+        'resetRoute' => 'admin.driver.index'
+        ])
         
     @endcomponent
     @component('components.tables.index-table-filter',[
-        'placeholder' => 'Search for driver',
         'addNew' => 'Add New Driver',
-        'createRoute' => 'admin.driver.create'])
+        'createRoute' => 'admin.driver.create',
+        'filterByCriteria' => ['Name' => 'name', 'Outlet' => 'outlet'],
+        'statusFilter' => ['All' => '%active%', 'Active' => 'active', 'Inactive' => 'inactive'],
+        'firstFilterBy' => 'name'
+        ])
     @endcomponent
     {{ $drivers->links() }}
     <div class="w-full overflow-visible rounded-lg shadow-xs">

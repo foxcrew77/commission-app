@@ -57,6 +57,7 @@
                   autofocus
                 />
               </label>
+              <input type="text" id="slug" name="slug" hidden>
               <label class="mt-4 block text-sm">
                 <span class="text-gray-700 dark:text-gray-400">Total Weight (KG)</span>
                 <input
@@ -82,7 +83,7 @@
                 <option value="" selected disabled>Please select lorry</option>
                 @foreach ($lorries as $lorry)
                     
-                <option value="{{ $lorry->plate_no }}">
+                <option value="{{ $lorry->id }}-{{ $lorry->plate_no }}">
                     {{ $lorry->plate_no }}
                 </option>
                 @endforeach
@@ -101,7 +102,7 @@
                 <option value="" selected disabled>Please select driver</option>
                 @foreach ($drivers as $driver)
                     
-                <option value="{{ $driver->name }}">{{ $driver->name }}
+                <option value="{{ $driver->id }}">{{ $driver->name }}
                   {{ old('driver') == $driver->name ? 'checked' : ''  }}
                 </option>
                 @endforeach
@@ -116,14 +117,18 @@
                   <div id="body">
                   <select name="workmen[]" id="workman" multiple>
                     @foreach ($workmen as $workman)
-                        
-                    <option value="{{ $workman->name }}" data-position="workman">{{ $workman->name }}</option>
+                    @if($workman->position == 'workman')
+
+                    <option value="{{ $workman->id }}">{{ $workman->name }}</option>
+                    @endif
                     @endforeach
                     <option value="driver">Driver</option>
-                      @foreach ($drivers as $driver)
-                        
-                      <option value="{{ $driver->name }}" data-position="driver">{{ $driver->name }}</option>
-                      @endforeach
+                    @foreach ($workmen as $workman)
+                    @if($workman->position == 'driver')
+                      
+                    <option value="{{ $workman->id }}">{{ $workman->name }}</option>
+                    @endif
+                    @endforeach
                 </select>
               </div>
               </label>
@@ -136,19 +141,28 @@
               <script>
                 // new MultiSelectTag('countries')  // id
                 new MultiSelectTag('workman', {
-    rounded: true,    // default true
-    shadow: true,      // default false
-    placeholder: 'Search',  // default Search...
-    tagColor: {
-        textColor: '#327b2c',
-        borderColor: '#92e681',
-        bgColor: '#eaffe6',
-    },
-    onChange: function(values) {
-        console.log(values)
-    }
-})
-            </script>
+                  rounded: true,    // default true
+                  shadow: true,      // default false
+                  placeholder: 'Search',  // default Search...
+                  tagColor: {
+                      textColor: '#327b2c',
+                      borderColor: '#92e681',
+                      bgColor: '#eaffe6',
+                  },
+                  onChange: function(values) {
+                      console.log(values)
+                  }
+                })
+
+                // const plate_no = document.querySelector('#plate_no');
+                // const slug = document.querySelector('#slug');
+            
+                // plate_no.addEventListener("keyup", function() {
+                //     let preslug = plate_no.value;
+                //     preslug = preslug.replace(/ /g,"-");
+                //     slug.value = preslug.toLowerCase();
+                // });
+              </script>
 
     @endsection
 

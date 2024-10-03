@@ -6,6 +6,8 @@ use App\Http\Controllers\LorryResourceController;
 use App\Http\Controllers\DriverResourceController;
 use App\Http\Controllers\WorkmanResourceController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
+// use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +20,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
+Route::get('/', function(){
+    return Redirect::to('/dashboard');
+});
 
 
 //dashboard routes
 Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'admin.'], function () {
     //single action controllers
     Route::get('/', HomeController::class)->name('home');
+    // Route::get('/', HomeController::class)->name('home');
+    Route::post('/', [HomeController::class, 'monthComm'])->name('monthComm');
+    // Route::get('/',function($yearMonth,$outlet){
+    //     // $yearMonth = "2021-02";
+    //     // $outlet = "KKIP";
+    //     return Illuminate\Support\Facades\App::call('App\Http\Controllers\Admin\HomeController' , [
+    //         'yearMonth' => $yearMonth,
+    //         'outlet' => $outlet
+    //     ]);
+    // })->name('home');
     
     //link that return view, to get compoment from there
     Route::view('/buttons', 'admin.buttons')->name('buttons');
@@ -34,9 +48,10 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'admin.
     Route::view('/modals', 'admin.modals')->name('modals');
     Route::view('/tables', 'admin.tables')->name('tables');
 
-    route::resource('/deliverytrip', DeliveryResourceController::class);
-    route::resource('/lorry', LorryResourceController::class);
-    // route::resource('/lorry/{id}', [LorryResourceController::class, 'show']);
+    Route::resource('/deliverytrip', DeliveryResourceController::class);
+    Route::resource('/lorry', LorryResourceController::class);
+    // route::put('edit/{id}', [LorryResourceController::class, 'update'])->name('lorry.update');
+
     route::resource('/driver', DriverResourceController::class);
     route::resource('/workman', WorkmanResourceController::class);
 
@@ -48,6 +63,17 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard', 'as' => 'admin.
         Route::view('/login-page', 'admin.pages.login')->name('login');
     });
 });
+
+Route::get('/',[DeliveryResourceController::class, 'driverMonthlyCommission']);
+// Route::get('/', function($yearMonth,$outlet){
+//     $yearMonth = "2021-02";
+//     $outlet = "KK2";
+//     return Illuminate\Support\Facades\App::call('App\Http\Controllers\DeliveryResourceController@driverMonthlyCommission' , [
+//         'yearMonth' => $yearMonth,
+//         'outlet' => $outlet
+//     ]);
+// });
+
 route::get('/multidropdown',function(){
     $workmen = App\Models\Workman::select('name','slug')->orderBy('id','desc')->get(); 
     $drivers = App\Models\Driver::select('name','slug')->orderBy('id','desc')->get(); 

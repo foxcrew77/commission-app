@@ -6,7 +6,7 @@ const pieConfig = {
   data: {
     datasets: [
       {
-        data: [33, 33, 33],
+        data: [60, 40],
         /**
          * These colors come from Tailwind CSS palette
          * https://tailwindcss.com/docs/customizing-colors/#default-color-palette
@@ -15,7 +15,7 @@ const pieConfig = {
         label: 'Dataset 1',
       },
     ],
-    labels: ['Shoes', 'Shirts', 'Bags'],
+    labels: ['KKIP', 'KK2'],
   },
   options: {
     responsive: true,

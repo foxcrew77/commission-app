@@ -19,6 +19,7 @@ return new class extends Migration
             
             $table->foreign('delivery_trip_id')->references('id')->on('delivery_trips')->onDelete('cascade');
             $table->foreign('workman_id')->references('id')->on('workmen')->onDelete('cascade');
+
             
         });
     }

@@ -1,13 +1,19 @@
 @extends('layouts.admin')
 @section('content')
 <div class="container grid px-6 mx-auto mb-6">
-    @component('components.tables.table-title', ['title' => 'Workman'])
+    @component('components.tables.table-title', [
+        'title' => 'Workman',
+        'resetRoute' => 'admin.workman.index'
+        ])
         
     @endcomponent
     @component('components.tables.index-table-filter',[
-        'placeholder' => 'Search for workman',
         'addNew' => 'Add New Workman',
-        'createRoute' => 'admin.workman.create'])
+        'createRoute' => 'admin.workman.create',
+        'filterByCriteria' => ['Name' => 'name', 'Outlet' => 'outlet'],
+        'statusFilter' => ['All' => '%active%', 'Active' => 'active', 'Inactive' => 'inactive'],
+        'firstFilterBy' => 'name'
+        ])
     @endcomponent
     {{ $workmen->links() }}
     <div class="w-full overflow-visible rounded-lg shadow-xs">

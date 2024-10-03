@@ -1,0 +1,100 @@
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `annualCommission` (IN `yearcomm` VARCHAR(50) COLLATE utf8_unicode_ci)   BEGIN
+
+
+
+DECLARE stafflist char(50);
+DECLARE finished int default 0;
+DECLARE curStaff
+    CURSOR FOR 
+        select id from staff;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET finished = 1;
+SET @sql = '';
+
+DROP TEMPORARY TABLE IF EXISTS TEMPTABLE;
+CREATE TEMPORARY TABLE TEMPTABLE (
+    driver varchar(255),
+    total_monthly_commission decimal(8,2)
+);
+
+OPEN curStaff;
+
+getComm: LOOP
+
+    FETCH curStaff INTO stafflist;
+    
+    IF finished = 1 THEN LEAVE getComm;
+    END IF;
+insert into TEMPTABLE (driver, total_monthly_commission)
+    select driver, sum(total_commission) as total_monthly_commission
+from
+(
+(select driver,date, sum(commission) as total_commission
+from
+(
+select date, (case when ( sum(berat) > muatan and muatan > 2200 ) then ((sum(berat)-muatan)*0.008)*0.4
+                   when ( sum(berat) > muatan and muatan < 2500 ) then ((sum(berat)-muatan)*0.008)*0.5
+                   when ( sum(berat) < muatan) then 0
+    end) as commission, muatan, driver, workman from
+(
+select 
+date, berat, lori,muatan, driver, workman
+    from commission
+    inner join staff on commission.workman like concat('%',staff.id,'%') or commission.driver = staff.id 
+    inner join lori on commission.lori = lori.loriID
+ 
+ where 
+    date like concat('%',yearcomm,'%') and
+    driver like concat('%',stafflist,'%')
+    group by commID
+
+) as daily_comm
+group by muatan, date
+
+) as total_daily_commission
+group by driver)
+
+union
+
+(select workman,date, sum(commission) as total_commission
+from
+(
+select date, (case when ( sum(berat) > muatan and muatan > 2200 ) then ((sum(berat)-muatan)*0.008)*0.3
+                   when ( sum(berat) > muatan and muatan < 2500 ) then ((sum(berat)-muatan)*0.008)*0.5
+                   when ( sum(berat) < muatan) then 0
+    end) as commission, muatan, driver, workman from
+(
+select 
+date, berat, lori,muatan, driver, workman
+    from commission
+    inner join staff on commission.workman like concat('%',staff.id,'%') or commission.driver = staff.id 
+    inner join lori on commission.lori = lori.loriID
+ 
+ where 
+    date like concat('%',yearcomm,'%') and
+    workman like concat('%',stafflist,'%')
+    group by commID
+
+) as daily_comm
+group by muatan, date
+
+) as total_daily_commission) 
+) as total;
+
+    
+END LOOP getComm;
+
+select sum(total_monthly_commission) as totals from TEMPTABLE;
+
+
+
+END$$
+
+
+
+
+

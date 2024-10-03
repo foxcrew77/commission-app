@@ -176,6 +176,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // App\Providers\KyslikColumnSortableColumnSortableServiceProvider::class,
+        // App\Providers\Kyslik\LaravelFilterable\FilterableServiceProvider::class,
+
     ],
 
     /*

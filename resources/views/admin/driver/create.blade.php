@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
           <div class="container px-6 mx-auto grid">
-            @component('components.tables.create-title',['item' => 'Driver'])
+            @component('components.tables.create-title',['item' => 'Add New Driver'])
             @endcomponent
             <form action="{{ route('admin.driver.store') }}" method="post">
               @csrf

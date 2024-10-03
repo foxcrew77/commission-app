@@ -1,0 +1,7 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getComm` ()   BEGIN
+
+select nama into @result from daily_total_berat where nama = 'A D' ;
+select @result;
+
+ 
+END$$
