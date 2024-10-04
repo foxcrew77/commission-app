@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
 
+
 class DeliveryResourceController extends Controller
 {
     /**
@@ -29,29 +30,55 @@ class DeliveryResourceController extends Controller
         $lorry = $request->query('lorry');
         $driver = $request->query('driver');
         $workman = $request->query('workmen');
+        $outlet = $request->query('outlet');
         $total_weight = $request->query('total_weight');
-
-        // $test = DB::table('delivery_trip_lorry')->select('lorry_id')->first();
-        // $test = DB::table('delivery_trips')
-        // ->select('id','trip_date','lorry_id','driver_id','workman_id','total_weight','created_at','updated_at')
-        // ->join('delivery_trip_lorry', 'delivery_trips.id', '=', 'delivery_trip_lorry.delivery_trip_id')
-        // ->join('delivery_trip_driver', 'delivery_trips.id', '=', 'delivery_trip_driver.delivery_trip_id')
-        // ->join('delivery_trip_workman', 'delivery_trips.id', '=', 'delivery_trip_workman.delivery_trip_id')
-        // ->get()->skip(0)->take(10);
-
         // $trip->lorry()->get() as $lorry
         // $trip->driver()->get() as $driver
         // $trip->workmen()->get() as $workman
-        
-        // $delivery_trip = Delivery_trip::orderBy('id', 'DESC')->first();
-        // $test = $delivery_trip->workmen()->get();
-        // dd($test);
 
-        $delivery_trip = Delivery_trip::orderBy('id', 'DESC');
+        // $test = DB::table('delivery_trip_lorry')->select('lorry_id')->first();
+        $delivery_trip = Delivery_trip::orderBy('id', 'DESC')
+        ->select('id','trip_date','lorry_id','driver_id','workman_id','total_weight','created_at','updated_at')
+        ->join('delivery_trip_lorry_details', 'delivery_trips.id', '=', 'delivery_trip_lorry_details.delivery_trip_id')
+        ->join('delivery_trip_driver', 'delivery_trips.id', '=', 'delivery_trip_driver.delivery_trip_id')
+        ->join('delivery_trip_workman', 'delivery_trips.id', '=', 'delivery_trip_workman.delivery_trip_id')
+        ;
+        // if(!empty($request->query())){
+        //     $delivery_trip = Delivery_trip::where('total_weight' , 'like', '%' . $request->query('total_weight') . '%')
+        //     ->orWhere('trip_date' , 'like', '%' . $request->query('trip_date') . '%')->get();
+        // }
+
+        // $delivery_trip = Delivery_trip::select('id', 'trip_date','total_weight')->with('delivery_trip_lorry_details')->get();
+        // dd($delivery_trip);
+        // ->get();
+        // ->sortable();
+        // ->skip(0)->take(1000);
+        // dd($delivery_trip);
+        // dd($delivery_trips);
+        
+        
+         // if(!empty($request->query('workman'))){
+            //     $delivery_trip_workman = DB::table('delivery_trip_workman')
+            //         ->select('delivery_trip_id')
+            //         ->where('delivery_trip_workman.workman_id','=','81')
+            //         ->get();
+            //     dd($delivery_trip_workman);
+
+        // $delivery_trip = Delivery_trip::orderBy('id', 'DESC');
         // $delivery_trip = Delivery_trip::orderBy('id', 'DESC')
-        foreach($delivery_trip as $dt){
-            dd($dt->workmen()->get()); 
+        if(!empty($request->query())){
+            $delivery_trip
+                ->where('trip_date','=',$trip_date)
+                ->where('lorry_id','=',$lorry)
+                ->where('driver_id','=',$driver)
+                ->where('workman_id','=',$workman)
+                ->where('outlet','=',$outlet)
+                ->where('total_weight','=',$total_weight)
+                ->paginate(10);
+        } elseif(empty($request->query())) {
+            $delivery_trip = Delivery_trip::orderBy('id', 'DESC')->paginate(10);
         }
+        
         // $delivery_trip = DB::table('delivery_trip_complete;')->get();
         // dd($delivery_trip);
         // if(!empty($request->query())){
@@ -67,12 +94,12 @@ class DeliveryResourceController extends Controller
         //     'lorries' => $lorries,
         // ]);
         // $delivery_trip = Delivery_trip::orderBy('id', 'DESC')->paginate(20);
-        // return view('admin.deliverytrip.index', [
-        //     'delivery_trip' => $delivery_trip,
-        //     'lorries' => $lorries,
-        //     'drivers' => $drivers,
-        //     'workmen' => $workmen,
-        // ]);
+        return view('admin.deliverytrip.index', [
+            'delivery_trip' => $delivery_trip,
+            'lorries' => $lorries,
+            'drivers' => $drivers,
+            'workmen' => $workmen,
+        ]);
 
     }
 
