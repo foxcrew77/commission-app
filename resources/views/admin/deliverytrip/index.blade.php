@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-<div class="container grid px-6 mx-auto mb-6">
+<div class="container grid px-6 mt-4 mx-auto mb-6">
     @component('components.tables.table-title', [
         'title' => 'Delivery Trip',
         'resetRoute' => 'admin.deliverytrip.index'

@@ -1,0 +1,46 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        // DB::statement('DROP VIEW delivery_views');
+        DB::statement('
+        CREATE VIEW delivery_views AS
+        SELECT 
+        `delivery_trip_lorry_details`.`delivery_trip_id` AS `id`,
+        `delivery_trips`.`slug` AS `slug`,
+        `delivery_trips`.`trip_date` AS `trip_date`,
+        `delivery_trips`.`total_weight` AS `total_weight`,
+        `delivery_trip_lorry_details`.`lorry_id` AS `lorry_id`,
+        `delivery_trip_driver`.`driver_id` AS `driver_id`,
+        `delivery_trip_lorry_details`.`outlet` AS `outlet`,
+        `delivery_trip_asworkman_id`.`workman_id` AS `workman_id`,
+        `delivery_trips`.`created_at` AS `created_at`,
+        `delivery_trips`.`updated_at` AS `updated_at`
+    FROM
+        (((`delivery_trip_asworkman_id`
+        JOIN `delivery_trip_driver` ON ((`delivery_trip_asworkman_id`.`delivery_trip_id` = `delivery_trip_driver`.`delivery_trip_id`)))
+        JOIN `delivery_trip_lorry_details` ON ((`delivery_trip_asworkman_id`.`delivery_trip_id` = `delivery_trip_lorry_details`.`delivery_trip_id`)))
+        JOIN `delivery_trips` ON ((`delivery_trips`.`id` = `delivery_trip_asworkman_id`.`delivery_trip_id`)))'
+        );
+    }
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        DB::statement('DROP VIEW delivery_views');
+    }
+};
+
+
+// php artisan migrate --path=/database/migrations/test/2024_10_04_033253_create_delivery_info_complete

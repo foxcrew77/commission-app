@@ -62,7 +62,7 @@
     
     <div class="flex flex-col flex-1 w-full">
         @include('includes.header')
-        @include('includes.breadcrumb')
+        {{-- @include('includes.breadcrumb') --}}
         <main class="h-full overflow-y-auto">
             @yield('content')
         </main>

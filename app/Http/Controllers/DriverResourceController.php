@@ -137,7 +137,9 @@ class DriverResourceController extends Controller
      */
     public function destroy(Driver $driver)
     {
+        $workmanToDelete = Workman::where('asWorkman_id', $driver->id)->get();
         Driver::destroy($driver->id);
-        return redirect(route('admin.driver.index'))->with('success', 'Driver has been deleted.');
+        Workman::destroy($workmanToDelete);
+        return redirect(route('admin.driver.index'))->with('success', "Driver has been deleted. Driver's name in workmen list also has been deleted");
     }
 }

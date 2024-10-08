@@ -113,7 +113,6 @@ class LorryResourceController extends Controller
     {
         return view('admin.lorry.edit', [
             'lorry' =>  $lorry,
-            // 'created_by' => $created_by,
         ]);
     }
 

@@ -2,11 +2,11 @@
     <form class="form-inline" method="GET">
     <div class="flex  sm:flex-row">
         <div class="flex flex-row mb-2 sm:mb-0">
-            {{-- {{ dd($lorryFilter) }} --}}
             <div class="flex flex-row mb-2 sm:mb-0 ">
                 <input type="date"
                 class="w-full pl-8 pr-2 text-sm text-gray-700 placeholder-gray-600 bg-white border-gray-500 rounded-md dark:placeholder-gray-500 dark:focus:shadow-outline-gray dark:focus:placeholder-gray-600 dark:bg-gray-700 dark:text-gray-200 focus:placeholder-gray-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-outline-purple form-input"
                 name="trip_date"
+                value="{{ request()->input('trip_date') }}"
                 >
             </div>
             <div class="relative">
@@ -17,7 +17,9 @@
                     >
                     <option selected value="">Lorry</option>
                     @foreach ($lorryFilter as $lorry)
-                        <option value="{{ $lorry->id }}">{{ $lorry->plate_no }}</option>
+                        <option 
+                        <?= $lorry->id == request()->input('lorry')  ? 'selected' : ''  ?>
+                        value="{{ $lorry->id }}">{{ $lorry->plate_no }}</option>
                     @endforeach
                 </select>
             </div>
@@ -31,7 +33,9 @@
                     >
                     <option selected value="">Driver</option>
                     @foreach ($driverFilter as $driver)
-                        <option value="{{ $driver->id }}">{{ $driver->name }}</option>
+                        <option 
+                        <?= $driver->id == request()->input('driver')  ? 'selected' : ''  ?>
+                        value="{{ $driver->id }}">{{ $driver->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -45,7 +49,10 @@
                     >
                     <option selected value="">Workman</option>
                     @foreach ($workmenFilter as $workman)
-                        <option value="{{ $workman->id }}">{{ $workman->name }}</option>
+                        <option 
+                        <?= 
+                        $workman->id == request()->input('workmen')  ? 'selected' : ''  ?>
+                        value="{{ $workman->id }}">{{ $workman->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -58,8 +65,12 @@
                     name="outlet"
                     >
                     <option selected value="">Outlet</option>
-                    <option value="KKIP">KKIP</option>
-                    <option value="KK2">KK2</option>
+                    <option 
+                    <?= 'KKIP' == request()->input('outlet')  ? 'selected' : ''  ?>
+                    value="KKIP">KKIP</option>
+                    <option 
+                    <?= 'KK2' == request()->input('outlet')  ? 'selected' : ''  ?>
+                    value="KK2">KK2</option>
                 </select>
             </div>
         </div>
@@ -71,7 +82,7 @@
             placeholder="Filter by weight "
             aria-label="Search" 
             name="total_weight"
-            value="{{ request()->input('filter') }}"
+            value="{{ request()->input('total_weight') }}"
             />
         </div>
         <button

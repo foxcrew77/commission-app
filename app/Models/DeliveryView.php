@@ -6,17 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Delivery_trip extends Model
+class DeliveryView extends Model
 {
-    use Sortable;
+    use sortable;
     use HasFactory;
-
-    protected $guarded = [
-        'id',
-    ];
-    
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function delivery_trips(){
+        return $this->belongsToMany(Delivery_trip::class);
     }
 
     public function lorries(){
@@ -30,10 +25,5 @@ class Delivery_trip extends Model
 
     public function workmen(){
         return $this->belongsToMany(Workman::class, 'delivery_trip_workman', 'delivery_trip_id', 'workman_id');
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
     }
 }
